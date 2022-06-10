@@ -1,0 +1,22 @@
+package com.example.word_phone_web.dto.respone.product;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.util.List;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class ProductRespone {
+    private String id;
+    private String name;
+    private String imageKey;
+    private String status;
+    private String note;
+    private List<String> srcImage;
+    private List<RomRespone> romRespones;
+}
