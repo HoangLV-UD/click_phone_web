@@ -1,5 +1,7 @@
 package com.example.word_phone_web.dto.respone.product;
 
+import com.example.word_phone_web.dto.respone.attribute.AttributeRespone;
+import com.example.word_phone_web.dto.respone.rom.RomRespone;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,4 +21,5 @@ public class ProductRespone {
     private String note;
     private List<String> srcImage;
     private List<RomRespone> romRespones;
+    private AttributeRespone attributeRespone;
 }

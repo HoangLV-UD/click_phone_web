@@ -19,9 +19,11 @@ public class ProductServiceImpl implements ProductService {
 
     private final ProductRepo productRepo;
 
-    private final ImageService imageService;
+    private final ImageServiceImpl imageService;
 
-    private final RomService romService;
+    private final RomServiceImpl romService;
+
+    private final AttributeServiceImpl attributeService;
 
 
 
@@ -32,6 +34,7 @@ public class ProductServiceImpl implements ProductService {
             ProductRespone respone = mapToEntity(productEntity.get());
             respone.setSrcImage(imageService.getAllImageByProduct(respone.getId())); // set list image cho product
             respone.setRomRespones(romService.findByProductId(Long.valueOf(respone.getId()))); // set list Rom cho product
+            respone.setAttributeRespone(attributeService.findByProduct(productEntity.get().getId()));
             return respone;
         }
         log.error("Không tìm thấy product");

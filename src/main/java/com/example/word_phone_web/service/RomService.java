@@ -1,6 +1,6 @@
 package com.example.word_phone_web.service;
 
-import com.example.word_phone_web.dto.respone.product.RomRespone;
+import com.example.word_phone_web.dto.respone.rom.RomRespone;
 
 import java.util.List;
 

@@ -19,7 +19,6 @@ public class ProductApi {
     @GetMapping("{id}")
     public ResponseEntity<?> getProduct(@PathVariable("id") Long id){
         ProductRespone respone = productService.findById(id);
-        System.out.println(respone.getRomRespones());
         return  ResponseEntity.ok().body(respone);
     }
 

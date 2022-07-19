@@ -1,5 +1,6 @@
-package com.example.word_phone_web.dto.respone.product;
+package com.example.word_phone_web.dto.respone.rom;
 
+import com.example.word_phone_web.dto.respone.product.ProductPropertyRespone;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
