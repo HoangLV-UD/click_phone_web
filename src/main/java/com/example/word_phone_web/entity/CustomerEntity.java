@@ -41,6 +41,10 @@ public class CustomerEntity {
     @Column(name = "DATE_OF_BIRTH")
     private Date dateOfBirth;
 
+    @Basic
+    @Column(name = "PASSWORD")
+    private String passWord;
+
     public Long getId() {
         return id;
     }
@@ -87,6 +91,14 @@ public class CustomerEntity {
 
     public void setDateOfBirth(Date dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
+    }
+
+    public String getPassWord() {
+        return passWord;
+    }
+
+    public void setPassWord(String passWord) {
+        this.passWord = passWord;
     }
 }
 
