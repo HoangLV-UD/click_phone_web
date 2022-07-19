@@ -28,21 +28,21 @@
                 </div>
             </div>
         </div>
-        <!-- breadcrumb area end -->
 
-        <!-- login register wrapper start -->
         <div class="cont pt-1 mt-2 offset-3">
             <div class="form sign-in">
                 <h2>Sign In</h2>
-                <label class="lb">
-                    <span>Email Address</span>
-                    <input type="email" name="email" >
-                </label>
-                <label class="lb">
-                    <span>Password</span>
-                    <input type="password" name="password" >
-                </label>
-                <button class="submit" type="button">Sign In</button>
+                <form class="form-horizontal" th:action="@{/login-check}" method="post">
+                        <label class="lb">
+                            <span>Email Address</span>
+                            <input type="email" name="username" id="username" placeholder="Nhập email">
+                        </label>
+                        <label class="lb">
+                            <span>Password</span>
+                            <input type="password" name="password" id="userpassword" placeholder="Nhập mật khẩu">
+                        </label>
+                        <button class="submit" id="btnLogin" type="button">Đăng nhập</button>
+                </form>
                 <p class="forgot-pass">Forgot Password ?</p>
             </div>
 
@@ -61,6 +61,7 @@
                         <span class="m-in">Sign In</span>
                     </div>
                 </div>
+
                 <div class="form sign-up">
                     <h2>Sign Up</h2>
                     <label class="lb">
@@ -84,6 +85,45 @@
             </div>
         </div>
     <script th:src="@{/assets/js/vendor/script.js}"></script>
+        <script layout:fragment="script">
+            function validate() {
+                const patternEmail = /^\b[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i;
+                const email = $('#username');
+
+                // Email
+                if (!patternEmail.test(email.val())) {
+                    Swal.fire(
+                        'Email không hợp lệ!',
+                        'error'
+                    )
+                    return false;
+                }
+                return true;
+            }
+            $('#btnLogin').click(function (){
+                if (validate()) {
+                    // Save data to cookie if checked
+
+                    checkCountLoginFalse();
+                }
+            });
+
+            function checkCountLoginFalse(){
+                const message = $('#message');
+                const email = $('#username').val();
+
+                $.ajax({
+                    url: `/api/count_login_false?email=${email}`,
+                    type: 'GET',
+                    success: function (data) {
+                        $('form').submit();
+                    },
+                    error: function (data) {
+                        console.log(data)
+                    }
+                });
+            }
+        </script>
 </body>
 
 
