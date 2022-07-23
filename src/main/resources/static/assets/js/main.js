@@ -501,21 +501,80 @@
 	proQty.prepend('<span class="dec qtybtn">-</span>');
 	proQty.append('<span class="inc qtybtn">+</span>');
 	proQty.on('click', '.qtybtn', function () {
+		var quantity = document.getElementById("quantityProduct").value;
 		var $button = $(this);
 		var oldValue = $button.parent().find('input').val();
 		if ($button.hasClass('inc')) {
 			var newVal = parseFloat(oldValue) + 1;
+			if(Number(quantity) < 5){
+				if(Number(newVal) >= Number(quantity)){
+					newVal = Number(quantity);
+				}
+			}else {
+				if(Number(newVal) >= 5){
+					newVal = 5;
+				}
+			}
 		} else {
 			// Don't allow decrementing below zero
 			if (oldValue > 0) {
 				var newVal = parseFloat(oldValue) - 1;
+				if(Number(newVal) == 0){
+					newVal = 1;
+				}
 			} else {
-				newVal = 0;
+				newVal = 1;
 			}
 		}
 		$button.parent().find('input').val(newVal);
 		console.log(newVal);
 		console.log($button.parent().find('input').attr('id'))
+	});
+
+	var proQty1 = $('.pro-qty1');
+	proQty1.prepend('<span class="dec qtybtn1">-</span>');
+	proQty1.append('<span class="inc qtybtn1">+</span>');
+	proQty1.on('click', '.qtybtn1', function () {
+		var $button = $(this);
+		var quantity = $button.parent().find('input')[1].value;
+		var oldValue = $button.parent().find('input').val();
+		if ($button.hasClass('inc')) {
+			var newVal = parseFloat(oldValue) + 1;
+			if(Number(quantity) < 5){
+				if(Number(newVal) >= Number(quantity)){
+					newVal = Number(quantity);
+				}
+			}else {
+				if(Number(newVal) >= 5){
+					newVal = 5;
+				}
+			}
+		} else {
+			// Don't allow decrementing below zero
+			if (oldValue > 0) {
+				var newVal = parseFloat(oldValue) - 1;
+				if(Number(newVal) == 0){
+					newVal = 1;
+				}
+			} else {
+				newVal = 1;
+			}
+		}
+		var moneyProduct = $button.parent().parent().parent().find('span')[3].innerText
+		var money = Number(moneyProduct) * Number(newVal);
+		$button.parent().parent().parent().find('span')[6].innerHTML = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(money)
+		$button.parent().parent().parent().find('span')[7].innerHTML = money
+		$button.parent().find('input')[0].value = newVal;
+		//let getTrProduct = document.getElementsByClassName('tr-product');
+		// if(getTrProduct.length === 0){
+		// 	toastDanger("Thất bại","Bạn chưa có sản phẩm nào trong giỏ hàng");
+		// }
+		// let tong = 0;
+		// for (const $tr of getTrProduct) {
+		// 	let price = $tr.childNodes[13].childNodes[2].innerText;
+		// 	tong+=Number(price);
+		// }
+		// document.getElementById("totalCart").innerText = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(tong)
 	});
 
 	// nice select active js

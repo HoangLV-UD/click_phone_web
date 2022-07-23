@@ -3417,7 +3417,6 @@ only screen and (min-width: 768px) and (max-width: 991px) {
     -ms-justify-content: space-between;
     -webkit-box-pack: justify;
     justify-content: space-between;
-    -ms-flex-pack: space-between;
     padding: 0 15px;
     border-bottom: 1px solid #e5e5e5;
 }
@@ -4918,6 +4917,38 @@ only screen and (max-width: 767px) {
     background-color: transparent;
 }
 
+
+
+.product-details-des .quantity .pro-qty1 {
+    width: 90px;
+    height: 40px;
+    border: 1px solid #ddd;
+    padding: 0 15px;
+    float: left;
+}
+
+.product-details-des .quantity .pro-qty1 .qtybtn1 {
+    width: 15px;
+    display: block;
+    float: left;
+    line-height: 40px;
+    cursor: pointer;
+    text-align: center;
+    font-size: 22px;
+    color: #404040;
+}
+
+.product-details-des .quantity .pro-qty1 input {
+    width: 28px;
+    float: left;
+    border: none;
+    height: 40px;
+    line-height: 40px;
+    padding: 0;
+    text-align: center;
+    background-color: transparent;
+}
+
 .product-details-des .availability {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -5147,6 +5178,40 @@ only screen and (max-width: 767px) {
 }
 
 .product-details-des .group-product-table td .pro-qty input {
+    width: 28px;
+    float: left;
+    border: none;
+    height: 33px;
+    line-height: 33px;
+    padding: 0;
+    text-align: center;
+    background-color: transparent;
+}
+
+
+
+
+.product-details-des .group-product-table td .pro-qty1 {
+    width: 90px;
+    height: 35px;
+    border: 1px solid #ddd;
+    padding: 0 15px;
+    float: left;
+}
+
+.product-details-des .group-product-table td .pro-qty1 .qtybtn1 {
+    width: 15px;
+    display: block;
+    float: left;
+    line-height: 31px;
+    cursor: pointer;
+    text-align: center;
+    font-size: 15px;
+    font-weight: 700;
+    color: #404040;
+}
+
+.product-details-des .group-product-table td .pro-qty1 input {
     width: 28px;
     float: left;
     border: none;
@@ -5866,6 +5931,38 @@ only screen and (max-width: 767px) {
 }
 
 .cart-table .table tr .pro-qty input {
+    width: 28px;
+    float: left;
+    border: none;
+    height: 33px;
+    line-height: 33px;
+    padding: 0;
+    text-align: center;
+    background-color: transparent;
+}
+
+
+.cart-table .table tr .pro-qty1 {
+    width: 90px;
+    height: 35px;
+    border: 1px solid #ddd;
+    padding: 0 15px;
+    float: left;
+}
+
+.cart-table .table tr .pro-qty1 .qtybtn1 {
+    width: 15px;
+    display: block;
+    float: left;
+    line-height: 31px;
+    cursor: pointer;
+    text-align: center;
+    font-size: 15px;
+    font-weight: 700;
+    color: #404040;
+}
+
+.cart-table .table tr .pro-qty1 input {
     width: 28px;
     float: left;
     border: none;
