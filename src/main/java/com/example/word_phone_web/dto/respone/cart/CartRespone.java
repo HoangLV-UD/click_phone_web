@@ -22,6 +22,7 @@ public class CartRespone {
     private long priceProduct;
     private String priceProductString;
     private Long quantity;
+    private Long quantityProduct;
     private String color;
     private String rom;
     private String imgProduct;

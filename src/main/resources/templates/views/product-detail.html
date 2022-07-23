@@ -87,7 +87,7 @@
                                     <ul id="color-product-detail">
                                         <th:block th:each = "color : ${product.romRespones[0].productPropertyRespones}">
                                             <li>
-                                                <a th:attr="onclick=${'changeColor('''+color.color+''' , ' + product.romRespones[0].id +')'}"th:style="'background : ' + ${color.color}"  th:title="${color.color}"></a>
+                                                <a th:attr="onclick=${'changeColor('''+color.color+''' , ' + product.romRespones[0].id +')'}" th:style="'background : ' + ${color.color}"  th:title="${color.color}"></a>
                                             </li>
                                         </th:block>
                                     </ul>
@@ -103,10 +103,10 @@
                                 </div>
                                 <div class="quantity-cart-box d-flex align-items-center">
                                     <div class="quantity">
-                                        <div class="pro-qty"><input type="text" value="1"></div>
+                                        <div class="pro-qty"><input id="quantityCart" type="text" value="1"></div>
                                     </div>
                                     <div class="action_link">
-                                        <a class="buy-btn" href="#">add to cart<i class="fa fa-shopping-cart"></i> </a>
+                                        <a class="buy-btn" onclick="addCart()" type="button">add to cart<i class="fa fa-shopping-cart"></i> </a>
                                     </div>
                                 </div>
                                 <div class="useful-links mt-20">
@@ -829,6 +829,8 @@
 <!--<input id="sessionStaff" hidden type="text" value="-1" th:if="${session.staff == null}">-->
 
 <!-- product details wrapper end -->
+<input hidden id="idProductProper" value="1">
+<input hidden id="quantityProduct" value="1">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
 <!--<script th:src="@{/assets/js/listproduct.js}"></script>-->
@@ -837,6 +839,9 @@
 <script th:inline="javascript">
     let product = [[${product}]];
     console.log(product)
+    document.getElementById("idProductProper").value = product.romRespones[0].productPropertyRespones[0].id;
+    document.getElementById("quantityProduct").value = product.romRespones[0].productPropertyRespones[0].quantity;
+    console.log(document.getElementById("quantityProduct").value)
     function changeRom(){
         let colorRom = document.getElementById("color-product-detail");
         while (colorRom.lastElementChild){
@@ -848,6 +853,9 @@
                 if(romId === product.romRespones[i].id){
                     for (let j = 0; j < product.romRespones[i].productPropertyRespones.length; j++) {
                         document.getElementById("product-price").innerHTML = product.romRespones[i].productPropertyRespones[0].priceString;
+                        document.getElementById("idProductProper").value = product.romRespones[i].productPropertyRespones[0].id
+                        document.getElementById("quantityProduct").value = product.romRespones[i].productPropertyRespones[0].quantity;
+                        document.getElementById("quantityCart").value = 1;
                         colorRom.innerHTML += '<li>\n' +
                             '<a onclick="changeColor( \''+ product.romRespones[i].productPropertyRespones[j].color+  '\' , ' +  product.romRespones[i].id + ')" style="background : '+ product.romRespones[i].productPropertyRespones[j].color + '"  title="' + product.romRespones[i].productPropertyRespones[j].color +' "></a>\n' +
                             '</li>'
@@ -857,16 +865,49 @@
     }
 
     function changeColor(color , idRom){
-        console.log(color);
         for (let i = 0; i < product.romRespones.length; i++) {
             if(parseInt(product.romRespones[i].id) === parseInt(idRom)){
                 for (let j = 0; j < product.romRespones[i].productPropertyRespones.length; j++) {
                     if(color === product.romRespones[i].productPropertyRespones[j].color){
+                        document.getElementById("quantityCart").value = 1;
+                        document.getElementById("quantityProduct").value = product.romRespones[i].productPropertyRespones[j].quantity;
+                        document.getElementById("idProductProper").value = product.romRespones[i].productPropertyRespones[j].id
                         document.getElementById("product-price").innerHTML = product.romRespones[i].productPropertyRespones[j].priceString;
                     }
                 }
             }
         }
+    }
+    function addCart(){
+        console.log(document.getElementById("quantityCart").value)
+        console.log(document.getElementById("idProductProper").value)
+        let data = {
+            "idProduct" : document.getElementById("idProductProper").value,
+            "quantityCart" : document.getElementById("quantityCart").value
+        }
+        $.ajax({
+            url: '/api/cart',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(data),
+            dataType: 'json',
+            success: function (result) {
+                toastSuccess("Thành công","Thêm giỏ hàng thành công");
+                console.log(result);
+            },
+            error: function (error) {
+                console.log(error)
+                if(error.responseText === "ok"){
+                    toastSuccess("Thành công","Thêm giỏ hàng thành công ở trường hợp lỗi");
+                }else if(error.responseText === "sl"){
+                    toastDanger("Thất bại","Số lượng sản phẩm quá nhiều");
+                }else {
+                    toastDanger("Thất bại","Lỗi hệ thống");
+                }
+
+
+            }
+        })
     }
 
 

@@ -21,6 +21,7 @@
     <!-- Main Style CSS -->
     <link th:href="@{/assets/css/style.css}" rel="stylesheet">
     <link th:href="@{/assets/css/skin-default.css}" rel="stylesheet" id="galio-skin">
+    <link rel="stylesheet" type="text/css" th:href="@{/toastr/toastr.min.css}"/>
     <!-- Bootstrap CSS -->
 <!--    <link th:href="@{/assets/css/login.css}" rel="stylesheet">-->
     <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet">
@@ -199,7 +200,7 @@
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 <script th:src="@{/assets/js/cartService.js}"></script>
-
+<script th:src="@{/toastr/toa.js}"></script>
 <script>
     const formatter = new Intl.NumberFormat('vi-VI', {
         style: 'currency',

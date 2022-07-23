@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/weblayout}"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title >Thanh toán</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+</head>
+<body layout:fragment="content">
+
+
+<!-- breadcrumb area start -->
+<div class="breadcrumb-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="breadcrumb-wrap">
+                    <nav aria-label="breadcrumb">
+                        <ul class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                            <li class="breadcrumb-item"><a href="shop-grid-left-sidebar.html">shop</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">checkout</li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- breadcrumb area end -->
+
+<!-- checkout main wrapper start -->
+<div class="checkout-page-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <!-- Checkout Login Coupon Accordion Start -->
+                <div class="checkoutaccordion" id="checkOutAccordion">
+                    <div class="card">
+                        <h3>Bạn có mã giảm giá?<span data-toggle="collapse" data-target="#couponaccordion">Click để nhập mã giảm giá</span></h3>
+                        <div id="couponaccordion" class="collapse" data-parent="#checkOutAccordion">
+                            <div class="card-body">
+                                <div class="cart-update-option">
+                                    <div class="apply-coupon-wrapper">
+                                        <form action="#" method="post" class=" d-block d-md-flex">
+                                            <input type="text" placeholder="Enter Your Coupon Code" required />
+                                            <button class="check-btn sqr-btn">Áp dụng mã giảm giá</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Checkout Login Coupon Accordion End -->
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Checkout Billing Details -->
+            <div class="col-lg-6">
+                <div class="checkout-billing-details-wrap">
+                    <h2>Chi tiết hóa đơn</h2>
+                    <div class="billing-form-wrap">
+                        <form action="#">
+                            <div class="row">
+
+                                <div class="single-input-item">
+                                    <label for="f_name" class="required">Họ tên</label>
+                                    <input type="text" id="f_name" th:value="${cutomer.getFullName()}" required disabled/>
+                                </div>
+
+                            </div>
+
+                            <div class="single-input-item">
+                                <label for="phone" class="required">Điện thoại</label>
+                                <input type="text" id="phone" th:value="${cutomer.getPhoneNumber()}" required disabled />
+                            </div>
+
+
+                            <div class="single-input-item">
+                                <label for="country" class="required">Địa chỉ</label>
+                                <select name="country nice-select" id="country">
+                                    <option value="Afghanistan">Hà Nội</option>
+                                    <option>Khác...</option>
+                                </select>
+                            </div>
+
+                            <div class="single-input-item">
+                                <label for="street-address" class="required pt-20">Địa chỉ chi tiết</label>
+                                <input type="text" id="street-address" placeholder="Địa chỉ" required />
+                            </div>
+
+
+                            <div class="single-input-item">
+                                <label for="ordernote">Ghi chú cho cửa hàng</label>
+                                <textarea name="ordernote" id="ordernote" cols="30" rows="3" placeholder="Ghi chú"></textarea>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Order Summary Details -->
+            <div class="col-lg-6">
+                <div class="order-summary-details mt-md-26 mt-sm-26">
+                    <h2>Hóa đơn</h2>
+                    <div class="order-summary-content mb-sm-4">
+                        <!-- Order Summary Table -->
+                        <div class="order-summary-table table-responsive text-center">
+                            <table class="table table-bordered">
+                                <thead>
+                                <tr>
+                                    <th>Sản phẩm</th>
+                                    <th>Giá</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <th:block th:each="cart : ${listCart}">
+                                    <tr>
+                                        <td><a th:href="@{product/{id}(id=${cart.getIdProduct()})}" th:text="${cart.nameProduct}"></a><strong th:text="' × ' + ${cart.getQuantity()} "></strong></td>
+                                        <td th:text="${cart.getTotalString()}">$165.00</td>
+                                    </tr>
+                                </th:block>
+                                </tbody>
+                                <tfoot>
+                                <tr>
+                                    <td>Tổng tiền sản phẩm</td>
+                                    <td><strong th:text="${tong}">$400</strong></td>
+                                </tr>
+                                <tr>
+                                    <td>Tiền ship</td>
+                                    <td class="d-flex justify-content-center">
+                                        <ul class="shipping-type">
+                                            <li>
+                                                <div class="custom-control custom-radio">
+                                                    <input type="radio" id="flatrate" name="shipping" class="custom-control-input" checked />
+                                                    <label class="custom-control-label" for="flatrate">Flat Rate: $70.00</label>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="custom-control custom-radio">
+                                                    <input type="radio" id="freeshipping" name="shipping" class="custom-control-input" />
+                                                    <label class="custom-control-label" for="freeshipping">Free Shipping</label>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Tổng tiền hóa đơn</td>
+                                    <td><strong>$470</strong></td>
+                                </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                        <!-- Order Payment Method -->
+                        <div class="order-payment-method">
+                            <div class="single-payment-method show">
+                                <div class="payment-method-name">
+                                    <div class="custom-control custom-radio">
+                                        <input type="radio" id="cashon" name="paymentmethod" value="cash" class="custom-control-input" checked  />
+                                        <label class="custom-control-label" for="cashon">Thanh toán khi nhận hàng</label>
+                                    </div>
+                                </div>
+                                <div class="payment-method-details" data-method="cash">
+                                    <p>Thanh toán bằng chuyển khoản.</p>
+                                </div>
+                            </div>
+
+                            <div class="single-payment-method">
+                                <div class="payment-method-name">
+                                    <div class="custom-control custom-radio">
+                                        <input type="radio" id="paypalpayment" name="paymentmethod" value="paypal" class="custom-control-input" />
+                                        <label class="custom-control-label" for="paypalpayment">VN Pay <img src="assets/img/paypal-card.jpg" class="img-fluid paypal-card" alt="Paypal" /></label>
+                                    </div>
+                                </div>
+                                <div class="payment-method-details" data-method="paypal">
+                                    <p>Pay via PayPal; you can pay with your credit card if you don’t have a PayPal account.</p>
+                                </div>
+                            </div>
+                            <div class="summary-footer-area">
+                                <button type="submit" class="check-btn sqr-btn">Đặt đơn</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- checkout main wrapper end -->
+
+
+<!-- product details wrapper end -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+<!--<script th:src="@{/assets/js/listproduct.js}"></script>-->
+<!-- brand area end -->
+
+<script th:inline="javascript">
+
+</script>
+
+
+</body>
+</html>
+
+
