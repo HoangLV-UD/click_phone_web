@@ -1,6 +1,9 @@
 package com.example.word_phone_web.service;
 
+import com.example.word_phone_web.dto.request.customer.CustomerRequest;
 import com.example.word_phone_web.entity.CustomerEntity;
+
+import java.text.ParseException;
 
 /**
  * Description:
@@ -11,4 +14,8 @@ import com.example.word_phone_web.entity.CustomerEntity;
  */
 public interface CustomerService {
     CustomerEntity findByEmail(String email);
+
+    String addCustomer(CustomerRequest request) throws ParseException;
+
+    CustomerEntity findByPhone(String phone);
 }
