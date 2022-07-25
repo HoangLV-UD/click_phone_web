@@ -33,10 +33,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final SessionUtil sessionUtil;
 
-    @Bean
-    PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(staffDetailsService).passwordEncoder(new BCryptPasswordEncoder());
@@ -45,7 +42,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
-        http.authorizeRequests().antMatchers("/login/**", "/assets/**", "/register/**", "/api/product/**").permitAll();
+        http.authorizeRequests().antMatchers("/api/login/**","/login/**", "/assets/**", "/toastr/**", "/api/product/**").permitAll();
         http.authorizeRequests().anyRequest().authenticated();
 
         http.formLogin()

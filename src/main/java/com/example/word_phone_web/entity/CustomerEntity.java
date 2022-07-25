@@ -34,10 +34,6 @@ public class CustomerEntity {
     private String email;
 
     @Basic
-    @Column(name = "ADDRESS")
-    private String address;
-
-    @Basic
     @Column(name = "DATE_OF_BIRTH")
     private Date dateOfBirth;
 
@@ -75,14 +71,6 @@ public class CustomerEntity {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
     }
 
     public Date getDateOfBirth() {
