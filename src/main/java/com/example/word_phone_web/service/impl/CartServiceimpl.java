@@ -131,9 +131,16 @@ public class CartServiceimpl implements CartService {
         respone.setQuantity(entity.getQuantity());
         respone.setPriceProduct(propertyEntity.getPrice());
         respone.setPriceProductString(convertUtil.moneyToStringFormat(respone.getPriceProduct()));
-        respone.setTotal(respone.getQuantity() * respone.getPriceProduct());
-        respone.setTotalString(convertUtil.moneyToStringFormat(respone.getTotal()));
         respone.setRom(romEntity.getName() + " GB");
+        respone.setPriceProductPromotion(propertyEntity.getPricePromotion());
+        respone.setPriceProductPromotionString(convertUtil.moneyToStringFormat(respone.getPriceProductPromotion()));
+        if(respone.getPriceProductPromotion() > 0){
+            respone.setTotal(respone.getQuantity() * respone.getPriceProductPromotion());
+            respone.setTotalString(convertUtil.moneyToStringFormat(respone.getTotal()));
+        }else {
+            respone.setTotal(respone.getQuantity() * respone.getPriceProduct());
+            respone.setTotalString(convertUtil.moneyToStringFormat(respone.getTotal()));
+        }
         return respone;
     }
 }

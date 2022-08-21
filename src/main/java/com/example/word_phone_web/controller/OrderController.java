@@ -42,12 +42,19 @@ public class OrderController {
         CustomerEntity customerEntity = customerService.findByEmail(String.valueOf(sessionUtil.getObject("username")));
 
         long tong = 0;
+        boolean check = true;
         for (CartRespone cart: list
         ) {
             tong+=cart.getTotal();
+            if(cart.getPriceProductPromotion() > 0){
+                check = false;
+            }
         }
+        model.addAttribute("promotion", check ? 1 : 0);
         model.addAttribute("listCart", list);
         model.addAttribute("tong", convertUtil.moneyToStringFormat(tong));
+        model.addAttribute("tongOrder", convertUtil.moneyToStringFormat(tong + 30000));
+        model.addAttribute("tongPrice", tong);
         model.addAttribute("cutomer", customerEntity);
         return "views/checkout/checkout";
     }

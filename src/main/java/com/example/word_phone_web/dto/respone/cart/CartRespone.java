@@ -28,4 +28,6 @@ public class CartRespone {
     private String imgProduct;
     private long total;
     private String totalString;
+    private long priceProductPromotion;
+    private String priceProductPromotionString;
 }

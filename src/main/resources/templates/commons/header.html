@@ -85,9 +85,13 @@
                             <div class="header-mini-cart" onclick="onViewCart()">
                                 <div class="mini-cart-btn">
                                     <i class="fa fa-shopping-cart"></i>
-                                    <span id="sizeCart" class="cart-notification">2</span>
+                                    <span id="sizeCart" th:text="${sizeCart}" class="cart-notification">2</span>
                                 </div>
-                                <div style="font-size: 16px" id="total" class="cart-total-price">
+                                <div th:text="${totalCart}" style="font-size: 16px" id="totalCart" class="cart-total-price">
+                                    <span>total</span>
+                                    0
+                                </div>
+                                <div hidden th:text="${totalCartPrice}" style="font-size: 16px" id="totalCartPrice" class="cart-total-price">
                                     <span>total</span>
                                     0
                                 </div>
@@ -185,10 +189,10 @@
             </div>
         </div>
     </div>
-<!--<script>-->
-<!--    function onViewCart() {-->
-<!--        window.location.href = '/cart'-->
-<!--    }-->
+<script>
+    function onViewCart() {
+        window.location.href = '/cart'
+    }
 <!--    function historyOrderCustomer(){-->
 
 <!--        $('#modal-phone-number').modal('show');-->
@@ -277,7 +281,7 @@
 <!--        }-->
 <!--        var timeOut = setTimeout(demlui,1000);-->
 <!--    }-->
-<!--</script>-->
+</script>
 </header>
 
 </html>

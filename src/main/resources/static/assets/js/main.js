@@ -538,6 +538,7 @@
 		var $button = $(this);
 		var quantity = $button.parent().find('input')[1].value;
 		var oldValue = $button.parent().find('input').val();
+		console.log(oldValue)
 		if ($button.hasClass('inc')) {
 			var newVal = parseFloat(oldValue) + 1;
 			if(Number(quantity) < 5){
@@ -560,11 +561,24 @@
 				newVal = 1;
 			}
 		}
-		var moneyProduct = $button.parent().parent().parent().find('span')[3].innerText
-		var money = Number(moneyProduct) * Number(newVal);
-		$button.parent().parent().parent().find('span')[6].innerHTML = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(money)
-		$button.parent().parent().parent().find('span')[7].innerHTML = money
-		$button.parent().find('input')[0].value = newVal;
+		 var moneyProduct = $button.parent().parent().parent().find('span')[3].innerText; //giá tiền gốc
+		var moneyPromotion = $button.parent().parent().parent().find('span')[5].innerText;  //giá khuyến mãi sẽ có khi có khuyến mãi
+		console.log(moneyPromotion)
+		console.log(moneyProduct)
+		if(Number.isInteger(Number(moneyPromotion))){
+			var money = Number(moneyPromotion) * Number(newVal);
+			console.log($button.parent().parent().parent().find('span')[8])
+			$button.parent().parent().parent().find('span')[8].innerHTML = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(money)
+			$button.parent().parent().parent().find('span')[9].innerHTML = money
+			$button.parent().find('input')[0].value = newVal;
+		}else {
+			var money = Number(moneyProduct) * Number(newVal);
+			$button.parent().parent().parent().find('span')[6].innerHTML = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(money)
+			$button.parent().parent().parent().find('span')[7].innerHTML = money
+			$button.parent().find('input')[0].value = newVal;
+		}
+
+
 		//let getTrProduct = document.getElementsByClassName('tr-product');
 		// if(getTrProduct.length === 0){
 		// 	toastDanger("Thất bại","Bạn chưa có sản phẩm nào trong giỏ hàng");

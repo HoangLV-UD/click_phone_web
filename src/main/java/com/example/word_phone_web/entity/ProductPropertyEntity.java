@@ -31,6 +31,14 @@ public class ProductPropertyEntity extends BaseEntity{
     @Column(name = "COLOR_ID")
     private Long colorId;
 
+    @Basic
+    @Column(name = "PRICE_PROMOTION")
+    private long pricePromotion;
+
+    @Basic
+    @Column(name = "PROMOTION_ID")
+    private Long promotionId;
+
     public Long getId() {
         return id;
     }
@@ -77,5 +85,21 @@ public class ProductPropertyEntity extends BaseEntity{
 
     public void setColorId(Long colorId) {
         this.colorId = colorId;
+    }
+
+    public long getPricePromotion() {
+        return pricePromotion;
+    }
+
+    public void setPricePromotion(long pricePromotion) {
+        this.pricePromotion = pricePromotion;
+    }
+
+    public long getPromotionId() {
+        return promotionId;
+    }
+
+    public void setPromotionId(long promotionId) {
+        this.promotionId = promotionId;
     }
 }
