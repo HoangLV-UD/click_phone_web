@@ -59,10 +59,16 @@
                                                                            alt="Product"/></a></td>
                                 <td class="pro-title"><a th:href="@{product/{id}(id=${cart.getIdProduct()})}" href="#" th:text="${cart.nameProduct}"></a></td>
                                 <td class="pro-rom"><span th:text="${cart.getRom()}"></span></td>
+
                                 <td class="pro-color"><span th:text="${cart.color}"></span></td>
-                                <td class="pro-price"><span th:text="${cart.getPriceProductString()}">$295.00</span>
+                                <td class="pro-price" th:if="${cart.getPriceProductPromotion() == 0}"><span th:text="${cart.getPriceProductString()}"></span>
                                     <span th:text="${cart.getPriceProduct()}" hidden></span>
                                 </td>
+                                <td class="pro-price" th:if="${cart.getPriceProductPromotion() > 0}"><del><span th:text="${cart.getPriceProductString()}"></span></del>
+                                    <span th:text="${cart.getPriceProduct()}" hidden></span> <span th:text="${cart.getPriceProductPromotionString()}"></span>
+                                    <span th:text="${cart.getPriceProductPromotion()}" hidden></span>
+                                </td>
+
                                 <td class="pro-quantity">
                                     <div class="pro-qty1"><input th:id="'cart' + ${cart.getId()}" type="text" th:value="${cart.getQuantity()}">
                                                         <input hidden th:id="'product' + ${cart.getId()}" th:value="${cart.getQuantityProduct()}">
@@ -80,12 +86,6 @@
 
                 <!-- Cart Update Option -->
                 <div class="cart-update-option d-block d-md-flex justify-content-between">
-                    <div class="apply-coupon-wrapper mt-sm-16">
-                        <form action="#" method="post" class=" d-block d-md-flex">
-                            <input type="text" placeholder="Enter Your Coupon Code" required />
-                            <button class="sqr-btn">Nhập mã giảm giá</button>
-                        </form>
-                    </div>
                     <div class="cart-update mt-sm-16">
                         <button class="sqr-btn" onclick="updateCart()">Cập nhật giỏ hàng</button>
                     </div>
@@ -143,7 +143,7 @@
             type: 'DELETE',
             contentType: 'application/json',
             success: function (result) {
-
+                toastSuccess("Thành công","Đã xóa sản phẩm khỏi giỏ hàng");
             },
             error: function (error) {
                 toastDanger("Thất bại","Lỗi hệ thống, xóa sản phẩm thất bại");
@@ -159,6 +159,7 @@
         }
         for (const $tr of getTrProduct) {
             console.log($tr.id)
+            console.log($tr.childNodes[13])
             let quantity = $tr.childNodes[11].childNodes[1].childNodes[1].value;
             if(Number(quantity) === 0){
                 toastDanger("Thất bại","Số lượng sản phẩm phải lơn hơn 0");

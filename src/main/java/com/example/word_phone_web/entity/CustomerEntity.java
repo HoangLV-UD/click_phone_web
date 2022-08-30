@@ -41,6 +41,10 @@ public class CustomerEntity {
     @Column(name = "PASSWORD")
     private String passWord;
 
+
+    @OneToMany(mappedBy = "customerEntity")
+    private List<OrdersEntity> ordersEntities;
+
     public Long getId() {
         return id;
     }
@@ -87,6 +91,14 @@ public class CustomerEntity {
 
     public void setPassWord(String passWord) {
         this.passWord = passWord;
+    }
+
+    public List<OrdersEntity> getOrdersEntities() {
+        return ordersEntities;
+    }
+
+    public void setOrdersEntities(List<OrdersEntity> ordersEntities) {
+        this.ordersEntities = ordersEntities;
     }
 }
 
