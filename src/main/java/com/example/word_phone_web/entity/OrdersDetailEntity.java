@@ -30,6 +30,10 @@ public class OrdersDetailEntity extends BaseEntity{
     @Column(name = "QUANTITY")
     private Long quantity;
 
+    @Basic
+    @Column(name = "PRICE")
+    private Long price;
+
     public Long getId() {
         return id;
     }
@@ -60,5 +64,13 @@ public class OrdersDetailEntity extends BaseEntity{
 
     public void setQuantity(Long quantity) {
         this.quantity = quantity;
+    }
+
+    public Long getPrice() {
+        return price;
+    }
+
+    public void setPrice(Long price) {
+        this.price = price;
     }
 }

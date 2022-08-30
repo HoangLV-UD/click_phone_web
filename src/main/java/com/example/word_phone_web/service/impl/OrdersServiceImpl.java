@@ -57,6 +57,8 @@ public class OrdersServiceImpl implements OrderService {
                     ordersDetailEntity.setOrdersEntity(ordersEntity1);
                     ordersDetailEntity.setQuantity(cart.getQuantity());
                     ordersDetailEntity.setIdPropertyProduct(cart.getIdProduct().getId());
+                    ordersDetailEntity.setPrice(cart.getIdProduct().getPricePromotion() == 0 ? cart.getIdProduct().getPrice()
+                            : cart.getIdProduct().getPricePromotion());
                     ordersDetailRepo.save(ordersDetailEntity);
                     cartRepo.delete(cart);
                 }
