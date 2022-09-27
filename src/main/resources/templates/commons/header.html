@@ -24,7 +24,7 @@
                                     <a href="/cart">Giỏ hàng</a>
                                 </li>
                                 <li>
-                                    <a href="/check-out">Thanh toán</a>
+                                    <a href="/logout">Đăng xuất</a>
                                 </li>
                             </ul>
                         </nav>
@@ -132,7 +132,7 @@
                                     <li><a href="#">Khuyến mại <i class="fa fa-angle-down"></i></a>
 
                                     </li>
-                                    <li><a type="button" onclick="historyOrderCustomer()">Lịch Sử</a></li>
+                                    <li><a type="button" th:href="@{/your-orders/orders}">Lịch Sử</a></li>
                                 </ul>
                             </nav>
                         </div>

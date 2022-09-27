@@ -1,7 +1,12 @@
 package com.example.word_phone_web.repo;
 
 import com.example.word_phone_web.entity.OrdersDetailEntity;
+import com.example.word_phone_web.entity.OrdersEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 /**
  * Description:
@@ -10,5 +15,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @since: 13/08/2022
  * Project_name: com.example.word_phone_web.repo
  */
+@Repository
 public interface OrdersDetailRepo extends JpaRepository<OrdersDetailEntity, Long> {
+    @Query("select o from OrdersDetailEntity o where o.deleteFlag = false and o.ordersEntity.id = ?1")
+    List<OrdersDetailEntity> findByDeleteFlagIsFalseAndOrdersEntity(Long id);
 }
