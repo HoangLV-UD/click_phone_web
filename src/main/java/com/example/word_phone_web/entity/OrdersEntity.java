@@ -1,6 +1,7 @@
 package com.example.word_phone_web.entity;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -64,6 +65,31 @@ public class OrdersEntity extends BaseEntity{
     @OneToMany(mappedBy = "ordersEntity")
     private List<OrdersDetailEntity> ordersDetailEntities;
 
+    @Basic
+    @Column(name = "TYPE_ORDER")
+    private Integer typeOrder;
+
+    @Basic
+    @Column(name = "RECEIVE_DATE")
+    private Date receiveDate;
+
+    @Basic
+    @Column(name = "NAME_SHIP")
+    private String nameShip;
+    @Basic
+    @Column(name = "PHONE_SHIP")
+    private String phoneShip;
+    @Basic
+    @Column(name = "NOTE_SHIP")
+    private String noteShip;
+
+    public Integer getTypeOrder() {
+        return typeOrder;
+    }
+
+    public void setTypeOrder(Integer typeOrder) {
+        this.typeOrder = typeOrder;
+    }
 
     public Long getId() {
         return id;
@@ -159,5 +185,37 @@ public class OrdersEntity extends BaseEntity{
 
     public void setStatusPay(Integer statusPay) {
         this.statusPay = statusPay;
+    }
+
+    public Date getReceiveDate() {
+        return receiveDate;
+    }
+
+    public void setReceiveDate(Date receiveDate) {
+        this.receiveDate = receiveDate;
+    }
+
+    public String getNameShip() {
+        return nameShip;
+    }
+
+    public void setNameShip(String nameShip) {
+        this.nameShip = nameShip;
+    }
+
+    public String getPhoneShip() {
+        return phoneShip;
+    }
+
+    public void setPhoneShip(String phoneShip) {
+        this.phoneShip = phoneShip;
+    }
+
+    public String getNoteShip() {
+        return noteShip;
+    }
+
+    public void setNoteShip(String noteShip) {
+        this.noteShip = noteShip;
     }
 }

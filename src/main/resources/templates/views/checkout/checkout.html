@@ -217,12 +217,15 @@
                     toastSuccess("Thành công", "Áp mã sử dụng thành công");
                     let tong = document.getElementById("totalOrder1").value;
                     if(result.type === '%'){
-                        let khuyenMai = Number(tong) - (Number(tong) / Number(100) * Number(result.discount));
+                        console.log(Number(tong) / Number(100) * Number(result.discount))
+                        let khuyenMai = Math.round(Number(tong) - (Number(tong) / Number(100) * Number(result.discount)));
                         document.getElementById('priceOrderReal').value = khuyenMai;
                         document.getElementById('totalOrder').innerText = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(Number(khuyenMai));
+                        console.log(khuyenMai)
                     }else {
-                        let khuyenMai = Number(tong) - Number(result.discount);
+                        let khuyenMai =  Math.round(Number(tong) - Number(result.discount));
                         document.getElementById('priceOrderReal').value = khuyenMai;
+                        console.log(khuyenMai)
                         document.getElementById('totalOrder').innerText = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(Number(khuyenMai));
 
                     }
@@ -257,6 +260,7 @@
                 "totalMoney" : $('#priceOrderReal').val(),
                 "statusBy" : "offline"
             }
+            console.log($('#priceOrderReal').val())
             $.ajax({
                 url: '/api/orders/create',
                 type: 'GET',
@@ -279,6 +283,7 @@
                 "totalMoney" : $('#priceOrderReal').val(),
                 "statusBy" : "online"
             }
+            console.log($('#priceOrderReal').val())
             $.ajax({
                 url: '/api/orders/create/online',
                 type: 'GET',

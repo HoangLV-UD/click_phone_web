@@ -50,7 +50,9 @@ public class IVoucherServiceImpl implements VoucherService {
     @Override
     public VoucherRespone findByCode(String code) {
         VoucherRespone respone = new VoucherRespone();
-        VoucherEntity entity = repo.findByDeleteFlagIsFalseAndCode(code);
+        long millis=System.currentTimeMillis();
+        java.sql.Date date=new java.sql.Date(millis);
+        VoucherEntity entity = repo.findByDeleteFlagIsFalseAndCode(date,code);
         if(entity == null){
             return null;
         }

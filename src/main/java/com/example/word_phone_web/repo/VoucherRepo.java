@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
 import java.util.List;
 
 
@@ -17,6 +18,6 @@ public interface VoucherRepo extends JpaRepository<VoucherEntity, String> {
 
     VoucherEntity getByIdAndDeleteFlagIsFalse(String id);
 
-    @Query("select o from VoucherEntity o where o.deleteFlag = false and o.quantity > 0 and o.status = 'ON' and o.code = ?1")
-    VoucherEntity findByDeleteFlagIsFalseAndCode(String code);
+    @Query("select o from VoucherEntity o where o.endDate >= ?1 and o.code = ?2 and o.status = 'ON' and o.deleteFlag = false ")
+    VoucherEntity findByDeleteFlagIsFalseAndCode(Date date, String code);
 }
