@@ -858,6 +858,7 @@
 
         for (let i = 0; i < product.romRespones.length; i++) {
                 if(romId === product.romRespones[i].id){
+
                     for (let j = 0; j < product.romRespones[i].productPropertyRespones.length; j++) {
                         document.getElementById("product-price").innerHTML = product.romRespones[i].productPropertyRespones[0].priceString;
                         document.getElementById("idProductProper").value = product.romRespones[i].productPropertyRespones[0].id
