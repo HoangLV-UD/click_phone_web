@@ -91,6 +91,7 @@ public class OrdersServiceImpl implements OrderService {
     public VPResponDto createOrderOnline(OrdersRequest request , HttpServletRequest requesthttp) {
         try {
             Gson gson = new Gson();
+            System.out.println(util.moneyToStringFormat(request.getTotalMoney()));
             CustomerEntity customerEntity = customerRepo.findByEmail(String.valueOf(sessionUtil.getObject("username")));
             OrdersEntity ordersEntity = new OrdersEntity();
             if(request.getVoucherCode() != null){
@@ -102,9 +103,10 @@ public class OrdersServiceImpl implements OrderService {
 
             ordersEntity.setCustomerEntity(customerEntity);
             ordersEntity.setAddress(request.getAddress());
-            ordersEntity.setStatusPay(0);
+            ordersEntity.setTypeOrder(1);
+            ordersEntity.setStatusPay(1);
             ordersEntity.setNote(request.getNote());
-            ordersEntity.setStatus("0");
+            ordersEntity.setStatus("-2");
             ordersEntity.setTotalMoney(request.getTotalMoney());
             OrdersEntity ordersEntity1 = ordersRepo.save(ordersEntity);
             ordersEntity1.setCodeOrder("HD000" + ordersEntity1.getId());
@@ -113,13 +115,19 @@ public class OrdersServiceImpl implements OrderService {
             for (CartEntity cart: cartEntities
             ) {
                 OrdersDetailEntity ordersDetailEntity = new OrdersDetailEntity();
+                ProductPropertyEntity propertyEntity = productPropertyRepo.findByDeleteFlagIsFalseAndId(cart.getIdProduct().getId());
+                propertyEntity.setQuantity(propertyEntity.getQuantity() - cart.getQuantity());
+
                 ordersDetailEntity.setOrdersEntity(ordersEntity1);
                 ordersDetailEntity.setQuantity(cart.getQuantity());
                 ordersDetailEntity.setIdPropertyProduct(cart.getIdProduct().getId());
+                ordersDetailEntity.setPrice(cart.getIdProduct().getPricePromotion() == 0 ? cart.getIdProduct().getPrice()
+                        : cart.getIdProduct().getPricePromotion());
                 ordersDetailRepo.save(ordersDetailEntity);
                 cartRepo.delete(cart);
+                productPropertyRepo.save(propertyEntity);
             }
-            VPResponDto vpResponDto = gson.fromJson(VNPAYService.payments(ordersEntity1.getId(),10000000, Config.getRandomNumber(8), requesthttp), VPResponDto.class);
+            VPResponDto vpResponDto = gson.fromJson(VNPAYService.payments(ordersEntity1.getId(), Math.toIntExact(request.getTotalMoney()), Config.getRandomNumber(8), requesthttp), VPResponDto.class);
 
             return vpResponDto;
         }catch (Exception e){
