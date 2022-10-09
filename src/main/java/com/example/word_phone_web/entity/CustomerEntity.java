@@ -16,8 +16,7 @@ import java.util.List;
 @Table(name = "customer", schema = "world_phone", catalog = "")
 public class CustomerEntity {
 
-    @Id
-    @Column( name = "ID")
+    @Id    @Column( name = "ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 

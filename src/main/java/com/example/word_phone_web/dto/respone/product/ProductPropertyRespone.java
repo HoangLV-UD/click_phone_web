@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 public class ProductPropertyRespone {
     private String id;
     private String priceString;
+    private String priceNow;
     private long price;
     private long quantity;
     private String status;

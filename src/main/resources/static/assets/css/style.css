@@ -39,7 +39,9 @@ body {
     color: #404040;
     line-height: 24px;
 }
-
+.img-pri{
+    height: 200px;
+}
 a,
 a:hover,
 a:focus,

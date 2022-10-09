@@ -85,13 +85,9 @@
                             <div class="header-mini-cart" onclick="onViewCart()">
                                 <div class="mini-cart-btn">
                                     <i class="fa fa-shopping-cart"></i>
-                                    <span id="sizeCart" th:text="${sizeCart}" class="cart-notification">2</span>
+                                    <span id="sizeCart" class="cart-notification">2</span>
                                 </div>
-                                <div th:text="${totalCart}" style="font-size: 16px" id="totalCart" class="cart-total-price">
-                                    <span>total</span>
-                                    0
-                                </div>
-                                <div hidden th:text="${totalCartPrice}" style="font-size: 16px" id="totalCartPrice" class="cart-total-price">
+                                <div style="font-size: 16px" id="total" class="cart-total-price">
                                     <span>total</span>
                                     0
                                 </div>
@@ -110,12 +106,17 @@
                 <div class="col-lg-12">
                     <div class="main-header-inner">
                         <div class="category-toggle-wrap">
-                            <div class="category-toggle">
-                                Danh mục
-                                <div class="cat-icon" id="iconMenu">
-                                    <i class="fa fa-angle-down"></i>
-                                </div>
-                            </div>
+                            <form>
+                            <select onchange="this.form.submit()" id="categories" th:name="categori" class="categories">
+                                <option value="">--------Danh mục--------</option>
+                                <th:block th:each="category : ${categories}">
+                                    <option th:value="${category.id}"
+                                            th:utext="${category.name}">
+                                    </option>
+                                </th:block>
+                                <option>---------------</option>
+                            </select>
+                            </form>
                             <nav class="category-menu hm-1">
                                 <ul>
 
@@ -125,7 +126,7 @@
                         <div class="main-menu">
                             <nav id="mobile-menu">
                                 <ul>
-                                    <li class="active"><a href="/"><i class="fa fa-home"></i>Trang chủ</i></a>
+                                    <li class="active"><a th:href="@{/home}"><i class="fa fa-home"></i>Trang chủ</i></a>
 
                                     </li>
 
@@ -144,7 +145,7 @@
             </div>
         </div>
     </div>
-    <div class="modal " tabindex="-1" role="dialog" id="modal-phone-number" >
+    <div class="modal " tabindex="-1" role="dialog" id="modal-phone-number">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -155,7 +156,8 @@
                 </div>
                 <div class="modal-body">
                     <p>Tra cứu lịch sử mua hàng : </p>
-                    <input class="form-control" type="text" id="historyPhone" placeholder="Mời Nhập số điện thoại mua hàng">
+                    <input class="form-control" type="text" id="historyPhone"
+                           placeholder="Mời Nhập số điện thoại mua hàng">
                     <p class="text-danger" id="errorHistoryPhone"></p>
                 </div>
                 <div class="modal-footer">
@@ -166,7 +168,7 @@
             </div>
         </div>
     </div>
-    <div class="modal " tabindex="-1" role="dialog" id="modal-send-email" >
+    <div class="modal " tabindex="-1" role="dialog" id="modal-send-email">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -177,13 +179,16 @@
                 </div>
                 <div class="modal-body">
                     <p id="title-send-mail"></p>
-                    <input class="form-control" type="text" id="historyPhoneSenMail" placeholder="Nhập mã xác nhận gồm 6 số">
+                    <input class="form-control" type="text" id="historyPhoneSenMail"
+                           placeholder="Nhập mã xác nhận gồm 6 số">
                     <p class="text-danger" id="errorHistoryPhoneSenMail"></p>
                     <p id="thu-ma"></p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" onclick="confimOtp()">Xác nhận</button>
-                    <button type="button" style="display: none" class="btn btn-info" onclick="thuLaiOtp()" id="thu-lai-otp">Thử lại</button>
+                    <button type="button" style="display: none" class="btn btn-info" onclick="thuLaiOtp()"
+                            id="thu-lai-otp">Thử lại
+                    </button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
                 </div>
             </div>
@@ -196,76 +201,76 @@
     }
 <!--    function historyOrderCustomer(){-->
 
-<!--        $('#modal-phone-number').modal('show');-->
-<!--    }-->
-<!--    var code = ""-->
-<!--    var dateCode ;-->
-<!--    var phoneNumberCode="";-->
-<!--    function confimOtp(){-->
-<!--        var codeConfirm = document.getElementById('historyPhoneSenMail').value-->
-<!--        var  now= new Date();-->
-<!--        console.log(now)-->
-<!--        console.log(dateCode)-->
-<!--        console.log(now.getTime())-->
-<!--        if(code== codeConfirm  && now.getTime()- dateCode < 30*1000){-->
-<!--            window.location.href="/history?key="+phoneNumberCode-->
-<!--        }else {-->
-<!--            document.getElementById('errorHistoryPhoneSenMail').innerText="Mã xác nhận không đúng mời nhập lại"-->
-<!--        }-->
-<!--    }-->
-<!--    function thuLaiOtp(){-->
-<!--        s=30-->
-<!--        $.ajax({-->
-<!--            url:'/history/phone-number?phoneNumber='+phoneNumberCode,-->
-<!--            type: 'GET',-->
-<!--            contentType: 'application/json',-->
-<!--            success: function (result) {-->
-<!--                if (result.status == 'SUCCESS') {-->
-<!--                    $('#modal-phone-number').modal('hide');-->
-<!--                    $('#modal-send-email').modal('show');-->
-<!--                    document.getElementById('title-send-mail').innerText="Mã xác nhận đã được gửi đến số điện thoại "+ result.phoneNumber-->
-<!--                    code= result.code-->
-<!--                    dateCode=result.dateSend-->
-<!--                    phoneNumberCode =result.phoneNumber-->
-<!--                    demlui();-->
-<!--                }else {-->
-<!--                    document.getElementById('errorHistoryPhone').innerText="Gửi otp thất bại";-->
-<!--                }-->
-<!--            },-->
-<!--            error: function (error) {-->
+    <!--        $('#modal-phone-number').modal('show');-->
+    <!--    }-->
+    <!--    var code = ""-->
+    <!--    var dateCode ;-->
+    <!--    var phoneNumberCode="";-->
+    <!--    function confimOtp(){-->
+    <!--        var codeConfirm = document.getElementById('historyPhoneSenMail').value-->
+    <!--        var  now= new Date();-->
+    <!--        console.log(now)-->
+    <!--        console.log(dateCode)-->
+    <!--        console.log(now.getTime())-->
+    <!--        if(code== codeConfirm  && now.getTime()- dateCode < 30*1000){-->
+    <!--            window.location.href="/history?key="+phoneNumberCode-->
+    <!--        }else {-->
+    <!--            document.getElementById('errorHistoryPhoneSenMail').innerText="Mã xác nhận không đúng mời nhập lại"-->
+    <!--        }-->
+    <!--    }-->
+    <!--    function thuLaiOtp(){-->
+    <!--        s=30-->
+    <!--        $.ajax({-->
+    <!--            url:'/history/phone-number?phoneNumber='+phoneNumberCode,-->
+    <!--            type: 'GET',-->
+    <!--            contentType: 'application/json',-->
+    <!--            success: function (result) {-->
+    <!--                if (result.status == 'SUCCESS') {-->
+    <!--                    $('#modal-phone-number').modal('hide');-->
+    <!--                    $('#modal-send-email').modal('show');-->
+    <!--                    document.getElementById('title-send-mail').innerText="Mã xác nhận đã được gửi đến số điện thoại "+ result.phoneNumber-->
+    <!--                    code= result.code-->
+    <!--                    dateCode=result.dateSend-->
+    <!--                    phoneNumberCode =result.phoneNumber-->
+    <!--                    demlui();-->
+    <!--                }else {-->
+    <!--                    document.getElementById('errorHistoryPhone').innerText="Gửi otp thất bại";-->
+    <!--                }-->
+    <!--            },-->
+    <!--            error: function (error) {-->
 
-<!--            }-->
-<!--        })-->
-<!--    }-->
-<!--    function checkHistory(){-->
-<!--        document.getElementById('errorHistoryPhone').innerText=""-->
-<!--        var phoneNumber = document.getElementById('historyPhone').value-->
-<!--        const patternPhone = /^(84|0[3|5|7|8|9])+([0-9]{8})\b$/i;-->
-<!--        if(phoneNumber == ""){-->
-<!--            document.getElementById('errorHistoryPhone').innerText="Bạn chưa nhập số điệnh thoại";-->
-<!--            return-->
-<!--        }else if(!patternPhone.test(phoneNumber)){-->
-<!--            document.getElementById('errorHistoryPhone').innerText="Số điện thoại không đúng mời nhập lại!";-->
-<!--            return;-->
-<!--        }-->
-<!--        $.ajax({-->
-<!--            url:'/history/phone-number?phoneNumber='+phoneNumber,-->
-<!--            type: 'GET',-->
-<!--            contentType: 'application/json',-->
-<!--            success: function (result) {-->
-<!--                if (result.status == 'SUCCESS') {-->
-<!--                    $('#modal-phone-number').modal('hide');-->
-<!--                    $('#modal-send-email').modal('show');-->
-<!--                    document.getElementById('title-send-mail').innerText="Mã xác nhận đã được gửi đến số điện thoại "+ result.phoneNumber-->
-<!--                    code= result.code-->
-<!--                    dateCode=result.dateSend-->
-<!--                    phoneNumberCode =result.phoneNumber-->
-<!--                    demlui();-->
-<!--                }else {-->
-<!--                    document.getElementById('errorHistoryPhone').innerText="Gửi otp thất bại";-->
-<!--                }-->
-<!--            },-->
-<!--            error: function (error) {-->
+    <!--            }-->
+    <!--        })-->
+    <!--    }-->
+    <!--    function checkHistory(){-->
+    <!--        document.getElementById('errorHistoryPhone').innerText=""-->
+    <!--        var phoneNumber = document.getElementById('historyPhone').value-->
+    <!--        const patternPhone = /^(84|0[3|5|7|8|9])+([0-9]{8})\b$/i;-->
+    <!--        if(phoneNumber == ""){-->
+    <!--            document.getElementById('errorHistoryPhone').innerText="Bạn chưa nhập số điệnh thoại";-->
+    <!--            return-->
+    <!--        }else if(!patternPhone.test(phoneNumber)){-->
+    <!--            document.getElementById('errorHistoryPhone').innerText="Số điện thoại không đúng mời nhập lại!";-->
+    <!--            return;-->
+    <!--        }-->
+    <!--        $.ajax({-->
+    <!--            url:'/history/phone-number?phoneNumber='+phoneNumber,-->
+    <!--            type: 'GET',-->
+    <!--            contentType: 'application/json',-->
+    <!--            success: function (result) {-->
+    <!--                if (result.status == 'SUCCESS') {-->
+    <!--                    $('#modal-phone-number').modal('hide');-->
+    <!--                    $('#modal-send-email').modal('show');-->
+    <!--                    document.getElementById('title-send-mail').innerText="Mã xác nhận đã được gửi đến số điện thoại "+ result.phoneNumber-->
+    <!--                    code= result.code-->
+    <!--                    dateCode=result.dateSend-->
+    <!--                    phoneNumberCode =result.phoneNumber-->
+    <!--                    demlui();-->
+    <!--                }else {-->
+    <!--                    document.getElementById('errorHistoryPhone').innerText="Gửi otp thất bại";-->
+    <!--                }-->
+    <!--            },-->
+    <!--            error: function (error) {-->
 
 <!--            }-->
 <!--        })-->
