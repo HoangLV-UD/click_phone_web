@@ -2,6 +2,8 @@ package com.example.word_phone_web.controller;
 
 import com.example.word_phone_web.dto.respone.cart.CartRespone;
 import com.example.word_phone_web.entity.CustomerEntity;
+import com.example.word_phone_web.entity.OrdersEntity;
+import com.example.word_phone_web.repo.OrdersRepo;
 import com.example.word_phone_web.service.CartService;
 import com.example.word_phone_web.service.CustomerService;
 import com.example.word_phone_web.util.ConvertUtil;
@@ -12,7 +14,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Description:
@@ -34,6 +38,20 @@ public class OrderController {
     private final SessionUtil sessionUtil;
 
     private final CustomerService customerService;
+    private final OrdersRepo ordersRepo;
+    @GetMapping("success")
+    public String success(HttpServletRequest request){
+        System.out.println(request.getContextPath());
+        System.out.println(request.getRequestURI());
+        System.out.println(request.getRequestURL());
+        if(request.getParameter("vnp_ResponseCode").equals("00")){
+            String id = request.getParameter("vnp_OrderInfo");
+            Optional<OrdersEntity> o = ordersRepo.findById(Long.valueOf(id));
+            o.get().setStatus("0");
+            ordersRepo.save(o.get());
+        }
+        return "redirect:/cart";
+    }
 
     @GetMapping("")
     public String index(Model model){

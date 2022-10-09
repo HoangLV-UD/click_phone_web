@@ -1,6 +1,7 @@
 package com.example.word_phone_web.service.impl;
 
 import com.example.word_phone_web.dto.respone.product.ProductRespone;
+import com.example.word_phone_web.dto.respone.rom.RomRespone;
 import com.example.word_phone_web.entity.ProductEntity;
 import com.example.word_phone_web.repo.ProductRepo;
 import com.example.word_phone_web.service.ImageService;
@@ -35,6 +36,12 @@ public class ProductServiceImpl implements ProductService {
             respone.setSrcImage(imageService.getAllImageByProduct(respone.getId())); // set list image cho product
             respone.setRomRespones(romService.findByProductId(Long.valueOf(respone.getId()))); // set list Rom cho product
             respone.setAttributeRespone(attributeService.findByProduct(productEntity.get().getId()));
+
+            for (int i = 0; i < respone.getRomRespones().size(); i++) {
+                if(respone.getRomRespones().get(i).getProductPropertyRespones().size() == 0){
+                    respone.getRomRespones().remove(i);
+                }
+            }
             return respone;
         }
         log.error("Không tìm thấy product");
