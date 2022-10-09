@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html  lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/weblayout}"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="meta description">
+
+</head>
+<body layout:fragment="content">
+
+<!-- color switcher start -->
+<div class="color-switcher">
+    <div class="color-switcher-inner">
+        <div class="switcher-icon">
+            <i class="fa fa-cog fa-spin"></i>
+        </div>
+
+        <div class="switcher-panel-item">
+            <h3>Color Schemes</h3>
+            <ul class="nav flex-wrap colors">
+                <li class="default active" data-color="default" data-toggle="tooltip" data-placement="top" title="Red"></li>
+                <li class="green" data-color="green" data-toggle="tooltip" data-placement="top" title="Green"></li>
+                <li class="soft-green" data-color="soft-green" data-toggle="tooltip" data-placement="top" title="Soft-Green"></li>
+                <li class="sky-blue" data-color="sky-blue" data-toggle="tooltip" data-placement="top" title="Sky-Blue"></li>
+                <li class="orange" data-color="orange" data-toggle="tooltip" data-placement="top" title="Orange"></li>
+                <li class="violet" data-color="violet" data-toggle="tooltip" data-placement="top" title="Violet"></li>
+            </ul>
+        </div>
+
+        <div class="switcher-panel-item">
+            <h3>Layout Style</h3>
+            <ul class="nav layout-changer">
+                <li><button class="btn-layout-changer active" data-layout="wide">Wide</button></li>
+                <li><button class="btn-layout-changer" data-layout="boxed">Boxed</button></li>
+            </ul>
+        </div>
+
+        <div class="switcher-panel-item bg">
+            <h3>Background Pattern</h3>
+            <ul class="nav flex-wrap bgbody-style bg-pattern">
+                <li><img src="assets/img/bg-panel/bg-pettern/1.png" alt="Pettern"></li>
+                <li><img src="assets/img/bg-panel/bg-pettern/2.png" alt="Pettern"></li>
+                <li><img src="assets/img/bg-panel/bg-pettern/3.png" alt="Pettern"></li>
+                <li><img src="assets/img/bg-panel/bg-pettern/4.png" alt="Pettern"></li>
+                <li><img src="assets/img/bg-panel/bg-pettern/5.png" alt="Pettern"></li>
+                <li><img src="assets/img/bg-panel/bg-pettern/6.png" alt="Pettern"></li>
+            </ul>
+        </div>
+
+        <div class="switcher-panel-item bg">
+            <h3>Background Image</h3>
+            <ul class="nav flex-wrap bgbody-style bg-img">
+                <li><img src="assets/img/bg-panel/bg-img/01.jpg" alt="Images"></li>
+                <li><img src="assets/img/bg-panel/bg-img/02.jpg" alt="Images"></li>
+                <li><img src="assets/img/bg-panel/bg-img/03.jpg" alt="Images"></li>
+                <li><img src="assets/img/bg-panel/bg-img/04.jpg" alt="Images"></li>
+                <li><img src="assets/img/bg-panel/bg-img/05.jpg" alt="Images"></li>
+                <li><img src="assets/img/bg-panel/bg-img/06.jpg" alt="Images"></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- color switcher end -->
+
+<div class="wrapper box-layout">
+
+
+    <!-- hero slider start -->
+    <div class="hero-slider-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="slider-wrapper-area2 mt-30">
+                        <div class="hero-slider-active hero__2 slick-dot-style hero-dot">
+                            <div class="single-slider d-flex align-items-center" style="background-image: url(assets/img/slider/slider21_bg.jpg);">
+                                <div class="container">
+                                    <div class="slider-main-content">
+                                        <div class="slider-text text-center">
+                                            <h2>new camera products</h2>
+                                            <h3>get up to 50% sale</h3>
+                                            <p>This is photoshop's version of lorem ipsum. Proin gravida nibh vel velit auctor aliquet. </p>
+                                            <a class="home-btn" href="#">shop now</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="single-slider d-flex align-items-center" style="background-image: url(assets/img/slider/slider22_bg.jpg);">
+                                <div class="container">
+                                    <div class="slider-main-content">
+                                        <div class="slider-text text-center">
+                                            <h2>new smart tv products</h2>
+                                            <h3>get up to 50% sale</h3>
+                                            <p>This is photoshop's version of lorem ipsum. Proin gravida nibh vel velit auctor aliquet. </p>
+                                            <a class="home-btn" href="#">shop now</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- hero slider end -->
+
+    <!-- home banner area start -->
+    <div class="banner-area mt-30 pb-4 mt-xs-0">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-3 col-sm-5 order-1">
+                    <div class="img-container img-full fix">
+                        <a href="#">
+                            <img src="assets/img/banner/banner_left.jpg" alt="">
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-5 col-md-5 order-sm-3 mt-sm-30">
+                    <div class="img-container img-full fix mb-30">
+                        <a href="#">
+                            <img src="assets/img/banner/banner_static_top1.jpg" alt="">
+                        </a>
+                    </div>
+                    <div class="img-container img-full fix mb-30">
+                        <a href="#">
+                            <img src="assets/img/banner/banner_static_top2.jpg" alt="">
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-7 order-2 order-md-3 mt-xs-30">
+                    <div class="img-container img-full fix">
+                        <a href="#">
+                            <img src="assets/img/banner/banner_static_top3.jpg" alt="">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- home banner area end -->
+
+    <!-- product wrapper area strat -->
+    <div class="product-feature-wrapper mb-lg-6">
+        <div class="container">
+            <div class="row">
+                <!-- hot deals area start -->
+                <div class="col-lg-6">
+                    <div class="hot-deals-wrap2 mb-30 mb-md-22 mb-sm-22 mt-xs-28">
+                        <div class="section-title-2 d-flex justify-content-between mb-28">
+                            <h3>hot deals</h3>
+                            <div class="category-append"></div>
+                        </div> <!-- section title end -->
+                        <div class="deals-carousel-active2 slick-padding" >
+                            <!-- product single item start -->
+                            <div class="product-item fix" th:each="product : ${products}" >
+<!--                                <th:block th:if="${product.pricePromotion} == 0">-->
+                                <div class="product-thumb">
+                                    <a th:href="@{'/product/'+${product.id }}" >
+                                        <img th:src="${product.imageKey}" class="img-pri" alt="" />
+<!--                                        <img src="assets/img/product/product-img13.jpg" class="img-sec" alt="">-->
+                                    </a>
+                                    <div class="product-label">
+                                        <span>hot</span>
+                                    </div>
+                                    <div class="product-action-link">
+                                        <a href="#" data-toggle="modal" data-target="#quick_view"> <span data-toggle="tooltip" data-placement="left" title="Quick view"><i class="fa fa-search"></i></span> </a>
+                                        <a onclick="addListFavorite()" th:value="${product.id}" id="favorite" data-toggle="tooltip" data-placement="left" title="Wishlist"><i class="fa fa-heart-o"></i></a>
+                                        <a href="#" data-toggle="tooltip" data-placement="left" title="Compare"><i class="fa fa-refresh"></i></a>
+                                        <a href="#" data-toggle="tooltip" data-placement="left" title="Add to cart"><i class="fa fa-shopping-cart"></i></a>
+                                    </div>
+                                </div>
+                                <div class="product-content">
+                                    <h4><a th:href="@{'/product/'+${product.id }}" th:utext="${product.name}"></a></h4>
+                                    <div class="pricebox">
+                                        <span class="regular-price"  th:utext="${product.romRespones[0].productPropertyRespones[0].priceString}" ></span>
+                                        <div class="ratings">
+                                            <span class="good"><i class="fa fa-star"></i></span>
+                                            <span class="good"><i class="fa fa-star"></i></span>
+                                            <span class="good"><i class="fa fa-star"></i></span>
+                                            <span class="good"><i class="fa fa-star"></i></span>
+                                        </div>
+                                    </div>
+                                </div>
+<!--                                </th:block>-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- hot deals area end -->
+                <!-- most view area start -->
+                <div class="col-lg-3">
+                    <div class="mostview-wrap">
+                        <div class="section-title-2 d-flex justify-content-between mb-28">
+                            <h3>Hot Sale</h3>
+                            <div class="category-append"></div>
+                        </div> <!-- section title end -->
+                        <div class="category-carousel-active row" data-row="3">
+                            <div class="col" th:each="product : ${products}">
+                                <div class="category-item" th:unless="${product.pricePromotion} == 0">
+                                    <div class="product-thumb">
+                                        <a th:href="@{'/product/'+${product.id }}" >
+                                            <img th:src="${product.imageKey}" alt="">
+                                        </a>
+                                    </div>
+                                    <div class="category-content">
+                                        <h4><a th:href="@{'/product/'+${product.id }}" th:utext="${product.name}"></a></h4>
+                                        <div class="price-box">
+                                            <div class="regular-price" th:utext="${product.romRespones[0].productPropertyRespones[0].priceNow}">
+                                            </div>
+                                            <div class="old-price" >
+                                                <del th:utext="${product.romRespones[0].productPropertyRespones[0].priceString}"></del>
+                                            </div>
+                                        </div>
+                                        <div class="ratings">
+                                            <span class="good"><i class="fa fa-star"></i></span>
+                                            <span class="good"><i class="fa fa-star"></i></span>
+                                            <span class="good"><i class="fa fa-star"></i></span>
+                                            <span class="good"><i class="fa fa-star"></i></span>
+                                            <span><i class="fa fa-star"></i></span>
+                                            <div class="pro-review">
+                                                <span>1 review(s)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> <!-- end single item -->
+                            </div> <!-- end single item column -->
+                        </div>
+                    </div>
+                </div>
+                <!-- most view area end -->
+            </div>
+        </div>
+    </div>
+    <!-- product wrapper area end -->
+
+    <!-- page wrapper start -->
+    <div class="main-home-wrapper">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="main-sidebar category-wrapper mb-24 pt-20 mt-md-8">
+                        <div class="section-title-2 d-flex justify-content-between mb-28">
+                            <h3>best seller</h3>
+                            <div class="category-append"></div>
+                        </div> <!-- section title end -->
+                        <div class="category-carousel-active row" data-row="3">
+                            <div class="col" th:each="product : ${products}">
+                                <div class="category-item" th:unless="${product.pricePromotion} == 0">
+                                    <div class="product-thumb">
+                                        <a th:href="@{'/product/'+${product.id }}" >
+                                            <img th:src="${product.imageKey}" alt="">
+                                        </a>
+                                    </div>
+                                    <div class="category-content">
+                                        <h4><a th:href="@{'/product/'+${product.id }}" th:utext="${product.name}"></a></h4>
+                                        <div class="price-box">
+                                            <div class="regular-price" th:utext="${product.romRespones[0].productPropertyRespones[0].priceNow}">
+                                            </div>
+                                            <div class="old-price" >
+                                                <del th:utext="${product.romRespones[0].productPropertyRespones[0].priceString}"></del>
+                                            </div>
+                                        </div>
+                                        <div class="ratings">
+                                            <span class="good"><i class="fa fa-star"></i></span>
+                                            <span class="good"><i class="fa fa-star"></i></span>
+                                            <span class="good"><i class="fa fa-star"></i></span>
+                                            <span class="good"><i class="fa fa-star"></i></span>
+                                            <span><i class="fa fa-star"></i></span>
+                                            <div class="pro-review">
+                                                <span>1 review(s)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> <!-- end single item -->
+                            </div> <!-- end single item column -->
+                        </div>
+                    </div>
+                    <!-- best seller area end -->
+                </div>
+                <div class="col-lg-9">
+                    <!-- banner statistic start -->
+                    <div class="banner-statistic pt-22 pb-36">
+                        <div class="img-container fix img-full">
+                            <a href="#">
+                                <img src="assets/img/banner/banner_static1.jpg" alt="">
+                            </a>
+                        </div>
+                    </div>
+                    <!-- banner statistic end -->
+                    <!-- featured category area start -->
+                    <div class="feature-category-area">
+                        <div class="section-title mb-30">
+                            <div class="title-icon">
+                                <i class="fa fa-bookmark"></i>
+                            </div>
+                            <h3>featured</h3>
+                        </div> <!-- section title end -->
+                        <!-- featured category start -->
+                        <div class="container">
+                            <div class="featured-carousel-active2 row slick-arrow-style" data-row="2">
+                                <!-- product single item start -->
+                                <div class="col" th:each="product : ${products}">
+                                    <div class="product-item fix mb-30" >
+                                        <div class="product-thumb">
+                                            <a th:href="@{'/product/'+${product.id }}" >
+                                                <img th:src="${product.imageKey}" alt="">
+                                            </a>
+                                            <div class="product-label">
+                                                <span>hot</span>
+                                            </div>
+                                            <div class="product-action-link">
+                                                <a href="#" data-toggle="modal" data-target="#quick_view"> <span data-toggle="tooltip" data-placement="left" title="Quick view"><i class="fa fa-search"></i></span> </a>
+                                                <a href="#" data-toggle="tooltip" data-placement="left" title="Wishlist"><i class="fa fa-heart-o"></i></a>
+                                                <a href="#" data-toggle="tooltip" data-placement="left" title="Compare"><i class="fa fa-refresh"></i></a>
+                                                <a href="#" data-toggle="tooltip" data-placement="left" title="Add to cart"><i class="fa fa-shopping-cart"></i></a>
+                                            </div>
+                                        </div>
+                                        <div class="product-content">
+                                            <h4><a th:href="@{'/product/'+${product.id }}" th:utext="${product.name}"></a></h4>
+                                            <div class="pricebox">
+                                                <span class="regular-price"th:utext="${product.romRespones[0].productPropertyRespones[0].priceString}">$90.00</span>
+                                                <div class="ratings">
+                                                    <span class="good"><i class="fa fa-star"></i></span>
+                                                    <span class="good"><i class="fa fa-star"></i></span>
+                                                    <span class="good"><i class="fa fa-star"></i></span>
+                                                    <span class="good"><i class="fa fa-star"></i></span>
+                                                    <span><i class="fa fa-star"></i></span>
+                                                    <div class="pro-review">
+                                                        <span>1 review(s)</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- product single item end -->
+
+                            </div>
+                        </div>
+                        <!-- featured category end -->
+                    </div>
+                    <!-- featured category area end -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- page wrapper end -->
+
+
+
+</div>
+
+
+
+<!-- Scroll to Top End -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+
+<script th:inline="javascript">
+    function addListFavorite(){
+        const id = $('#favorite').val();
+        console.log(id)
+        $.ajax({
+            url: `/api/product/favorite/${id}`,
+            type: 'PUT',
+            success: function (result) {
+                toastSuccess("Thành công","Đã thêm vào danh mục yêu thích");
+                console.log(result);
+            },
+            error: function (error) {
+                console.log(error)
+            }
+        })
+    }
+</script>
+</body>
+
+
+</html>

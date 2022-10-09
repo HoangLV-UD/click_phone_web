@@ -30,6 +30,7 @@ public class ProductPropertyServiceImpl implements ProductPropertyService {
         entityList.forEach(o -> {
             responeList.add(ProductPropertyRespone.builder()
                     .price(o.getPrice())
+                    .priceNow(util.moneyToStringFormat(o.getPricePromotion()*o.getPrice()/100))
                     .priceString(util.moneyToStringFormat(o.getPrice()))
                     .quantity(o.getQuantity())
                     .id(String.valueOf(o.getId()))

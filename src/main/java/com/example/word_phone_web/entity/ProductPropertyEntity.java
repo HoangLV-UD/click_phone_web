@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "property_product", schema = "world_phone", catalog = "")
-public class ProductPropertyEntity extends BaseEntity{
+public class ProductPropertyEntity extends BaseEntity {
     @Id
     @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,6 +30,14 @@ public class ProductPropertyEntity extends BaseEntity{
     @Basic
     @Column(name = "COLOR_ID")
     private Long colorId;
+
+    @Basic
+    @Column(name = "PRICE_PROMOTION")
+    private long pricePromotion;
+
+    public long getPricePromotion() {return pricePromotion;}
+
+    public void setPricePromotion(long pricePromotion) {this.pricePromotion = pricePromotion;}
 
     public Long getId() {
         return id;

@@ -54,7 +54,7 @@
                         <div class="col-lg-6">
                             <div class="login-reg-form-wrap  pr-lg-50">
                                 <h2>Sign In</h2>
-                                <form id="loginForm" th:action="@{/login-check}" method="post">
+                                    <form id="loginForm" th:action="@{/login-check}" method="post">
                                     <div class="single-input-item">
                                         <input type="email" name="username" id="username" placeholder="Email or Username" required />
                                     </div>
@@ -228,18 +228,18 @@
 
                 toastSuccess("Thành công", "Bạn đã đăng ký thành công")
 
-                // $.ajax({
-                //     url: '/api/register',
-                //     type: 'POST',
-                //     contentType: 'application/json',
-                //     data: JSON.stringify(data),
-                //     success: function (result) {
-                //         toastSuccess("Thành công", "Bạn đã đăng ký thành công")
-                //     },
-                //     error: function (error) {
-                //         toastDanger("Thất bại", "Lỗi hệ thống, vui lòng thử lại sau")
-                //     }
-                // })
+                $.ajax({
+                    url: '/api/register',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify(data),
+                    success: function (result) {
+                        toastSuccess("Thành công", "Bạn đã đăng ký thành công")
+                    },
+                    error: function (error) {
+                        toastDanger("Thất bại", "Lỗi hệ thống, vui lòng thử lại sau")
+                    }
+                })
             }
 
             function formatDate (input) {

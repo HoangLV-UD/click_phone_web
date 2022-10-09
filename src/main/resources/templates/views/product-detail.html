@@ -48,7 +48,6 @@
                                         <img th:src="${image}" alt=""/>
                                     </div>
                                 </th:block>
-
                             </div>
                             <div class="pro-nav slick-padding2 slick-arrow-style_2">
                                 <div class="pro-nav-thumb"><img th:src="${product.imageKey}" alt="" /></div>
@@ -848,6 +847,7 @@
             colorRom.removeChild(colorRom.lastElementChild);
         }
         var romId = $("#rom-product-detail").find(":selected").val();
+        console.log(romId)
 
         for (let i = 0; i < product.romRespones.length; i++) {
                 if(romId === product.romRespones[i].id){
