@@ -19,8 +19,8 @@
                     <nav aria-label="breadcrumb">
                         <ul class="breadcrumb">
                             <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                            <li class="breadcrumb-item"><a href="shop-grid-left-sidebar.html">shop</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">cart</li>
+                            <li class="breadcrumb-item"><a th:href="@{/your-orders/orders}">Đơn hàng</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Chi tiết đơn hàng</li>
                         </ul>
                     </nav>
                 </div>
@@ -50,9 +50,6 @@
                         </tr>
                         </thead>
                         <tbody id="bodyCart">
-                        <tr th:if="${listCart.size() == 0}">
-                            <td colspan="8">Chưa có sản phẩm nào trong giỏ hàng</td>
-                        </tr>
                         <th:block th:each="cart : ${listCart}">
                             <tr th:id="${cart.getId()}" class="tr-product">
                                 <td class="pro-thumbnail"><a href="#"><img class="img-fluid" th:src="${cart.getImgProduct()}"
@@ -85,9 +82,15 @@
                 </div>
 
                 <!-- Cart Update Option -->
-                <div class="cart-update-option d-block d-md-flex justify-content-between">
+                <div class="cart-update-option d-block d-md-flex justify-content-between" th:if="${check.equals('0')}">
                     <div class="cart-update mt-sm-16">
-                        <button class="sqr-btn" onclick="updateCart()">Cập nhật giỏ hàng</button>
+                        <button  class="btn btn-secondary btn-square-md" onclick="canncelOrder()">Hủy đơn hàng</button>
+                    </div>
+                </div>
+
+                <div class="cart-update-option d-block d-md-flex justify-content-between" th:if="${check.equals('-1')}">
+                    <div class="cart-update mt-sm-16">
+                        <button  class="btn btn-secondary btn-square-md" onclick="updateOrder()">Đặt lại đơn hàng</button>
                     </div>
                 </div>
             </div>
@@ -103,11 +106,11 @@
                             <table class="table">
                                 <tr>
                                     <td>Tổng số tiền sản phẩm</td>
-                                    <td th:text="${tong}">$230</td>
+                                    <td th:text="${tong1}">$230</td>
                                 </tr>
                                 <tr>
                                     <td>Giảm giá</td>
-                                    <td>0đ</td>
+                                    <td th:text="${voucher}">0đ</td>
                                 </tr>
                                 <tr class="total">
                                     <td>Tổng tiền</td>
@@ -116,12 +119,15 @@
                             </table>
                         </div>
                     </div>
-                    <a href="order" class="sqr-btn d-block">Tới trang thanh toán</a>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<input id="idOrder" th:value="${id}" hidden>
+
+
 
 
 
@@ -151,52 +157,45 @@
         })
     }
 
-    function updateCart() {
-        let lstDetails = [];
-        let getTrProduct = document.getElementsByClassName('tr-product');
-        if(getTrProduct.length === 0){
-            toastDanger("Thất bại","Bạn chưa có sản phẩm nào trong giỏ hàng");
-        }
-        for (const $tr of getTrProduct) {
-            console.log($tr.id)
-            console.log($tr.childNodes[13])
-            let quantity = $tr.childNodes[11].childNodes[1].childNodes[1].value;
-            if(Number(quantity) === 0){
-                toastDanger("Thất bại","Số lượng sản phẩm phải lơn hơn 0");
-                return;
-            }
-            if(Number(quantity) > 5){
-                toastDanger("Thất bại","Số lượng sản phẩm phải nhỏ hơn 5");
-                return;
-            }
-            lstDetails.push({
-                "quantity" : quantity,
-                "id" : $tr.id
-            });
-        }
-        if(lstDetails.length === 0){
-            toastDanger("Thất bại","Cập nhập giỏ hàng thất bại");
-            return;
-        }
+    function canncelOrder() {
+        let id = document.getElementById('idOrder').value;
+        console.log(id);
 
         $.ajax({
-            url: '/api/cart/',
-            type: 'PUT',
-            contentType: 'application/json',
-            data: JSON.stringify(lstDetails),
+            url: '/api/orders/' + id,
+            type: 'GET',
             success: function (result) {
-                console.log(result);
-                if(Number(result) > 0){
-                    toastSuccess("Thông báo","Đã xóa " + result + " sản phẩm do cửa hàng đã ngừng kinh doanh những sản phẩm này");
-                }else {
-                    toastSuccess("Thông báo", "Cập nhật thành công giỏ hàng");
-                }
+                toastSuccess("Thông báo", "Hủy đơn hàng thành công");
+
                 setTimeout(function () {
                     location.reload();
                 }, 2000)
             },
             error: function (error) {
-                toastDanger("Thất bại","Lỗi hệ thống, cập nhật giỏ hàng thất bại");
+                toastDanger("Thất bại","Lỗi hệ thống, Hủy đơn thất bại");
+            }
+        })
+
+
+
+    }
+
+    function updateOrder() {
+        let id = document.getElementById('idOrder').value;
+        console.log(id);
+
+        $.ajax({
+            url: '/api/orders/update/' + id,
+            type: 'GET',
+            success: function (result) {
+                toastSuccess("Thông báo", "Đặt lại đơn hàng thành công");
+
+                setTimeout(function () {
+                    location.reload();
+                }, 2000)
+            },
+            error: function (error) {
+                toastDanger("Thất bại","Lỗi hệ thống, Đặt lại đơn thất bại");
             }
         })
 

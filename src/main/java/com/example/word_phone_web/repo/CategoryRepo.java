@@ -14,4 +14,16 @@ public interface CategoryRepo extends JpaRepository<CategoryEntity,Long> {
     List<CategoryEntity> findByDeleteFlagIsFalse();
 
     Optional<CategoryEntity> findById(Long id);
+
+
+/**
+ * Description:
+ *
+ * @author: hieu
+ * @since: 12/08/2022
+ * Project_name: com.example.word_phone_web.repo
+ */
+
+    CategoryEntity findByDeleteFlagIsFalseAndId(Long id);
 }
+

@@ -76,8 +76,14 @@
                                     <h5>Availability:</h5>
                                     <span>1 in stock</span>
                                 </div>
-                                <div class="pricebox">
-                                    <span class="regular-price" id="product-price" th:text="${product.romRespones[0].productPropertyRespones[0].priceString}"></span>
+                                <div class="pricebox" th:if="${product.romRespones[0].productPropertyRespones[0].getPricePromotion() > 0}">
+                                    <del class="regular-price" id="product-price"><span  th:text="${product.romRespones[0].productPropertyRespones[0].getPriceString()}"></span></del>
+                                </div>
+                                <div class="pricebox" th:if="${product.romRespones[0].productPropertyRespones[0].getPricePromotion() > 0}">
+                                    <span class="regular-price" id="product-promotion"  th:text="${product.romRespones[0].productPropertyRespones[0].getPricePromotionString()}"></span>
+                                </div>
+                                <div class="pricebox" th:if="${product.romRespones[0].productPropertyRespones[0].getPricePromotion() == 0}">
+                                    <span class="regular-price" id="product-price"  th:text="${product.romRespones[0].productPropertyRespones[0].getPriceString()}"></span>
                                 </div>
                                 <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.<br>
                                     Phasellus id nisi quis justo tempus mollis sed et dui. In hac habitasse platea dictumst. Suspendisse ultrices mauris diam. Nullam sed aliquet elit. Mauris consequat nisi</p>
@@ -830,6 +836,7 @@
 <!-- product details wrapper end -->
 <input hidden id="idProductProper" value="1">
 <input hidden id="quantityProduct" value="1">
+<input hidden id="product-promotionPrice" th:value="${product.romRespones[0].productPropertyRespones[0].getPricePromotion()}">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
 <!--<script th:src="@{/assets/js/listproduct.js}"></script>-->
@@ -837,10 +844,10 @@
 
 <script th:inline="javascript">
     let product = [[${product}]];
+    let sizeCart = [[${sizeCart}]];
     console.log(product)
     document.getElementById("idProductProper").value = product.romRespones[0].productPropertyRespones[0].id;
     document.getElementById("quantityProduct").value = product.romRespones[0].productPropertyRespones[0].quantity;
-    console.log(document.getElementById("quantityProduct").value)
     function changeRom(){
         let colorRom = document.getElementById("color-product-detail");
         while (colorRom.lastElementChild){
@@ -856,6 +863,12 @@
                         document.getElementById("idProductProper").value = product.romRespones[i].productPropertyRespones[0].id
                         document.getElementById("quantityProduct").value = product.romRespones[i].productPropertyRespones[0].quantity;
                         document.getElementById("quantityCart").value = 1;
+                        if(product.romRespones[i].productPropertyRespones[0].pricePromotion > 0){
+                            document.getElementById("product-promotion").innerHTML = product.romRespones[i].productPropertyRespones[0].pricePromotionString;
+                            document.getElementById("product-promotionPrice").value = product.romRespones[i].productPropertyRespones[0].pricePromotion;
+                        }else {
+                            document.getElementById("product-promotionPrice").value = product.romRespones[i].productPropertyRespones[j].price;
+                        }
                         colorRom.innerHTML += '<li>\n' +
                             '<a onclick="changeColor( \''+ product.romRespones[i].productPropertyRespones[j].color+  '\' , ' +  product.romRespones[i].id + ')" style="background : '+ product.romRespones[i].productPropertyRespones[j].color + '"  title="' + product.romRespones[i].productPropertyRespones[j].color +' "></a>\n' +
                             '</li>'
@@ -873,6 +886,12 @@
                         document.getElementById("quantityProduct").value = product.romRespones[i].productPropertyRespones[j].quantity;
                         document.getElementById("idProductProper").value = product.romRespones[i].productPropertyRespones[j].id
                         document.getElementById("product-price").innerHTML = product.romRespones[i].productPropertyRespones[j].priceString;
+                        if(product.romRespones[i].productPropertyRespones[j].pricePromotion > 0){
+                            document.getElementById("product-promotion").innerHTML = product.romRespones[i].productPropertyRespones[j].pricePromotionString;
+                            document.getElementById("product-promotionPrice").value = product.romRespones[i].productPropertyRespones[j].pricePromotion;
+                        }else {
+                            document.getElementById("product-promotionPrice").value = product.romRespones[i].productPropertyRespones[j].price;
+                        }
                     }
                 }
             }
@@ -885,6 +904,9 @@
             "idProduct" : document.getElementById("idProductProper").value,
             "quantityCart" : document.getElementById("quantityCart").value
         }
+        console.log(document.getElementById("sizeCart").innerHTML)
+        let size =  Number(document.getElementById("sizeCart").innerHTML) + 1;
+
         $.ajax({
             url: '/api/cart',
             type: 'POST',
@@ -898,7 +920,18 @@
             error: function (error) {
                 console.log(error)
                 if(error.responseText === "ok"){
-                    toastSuccess("Thành công","Thêm giỏ hàng thành công ở trường hợp lỗi");
+                    toastSuccess("Thành công","Thêm giỏ hàng thành công ");
+                    document.getElementById("sizeCart").innerHTML = size;
+
+                    let priceProduct = document.getElementById("product-promotionPrice");
+                    if(priceProduct !== undefined || priceProduct !== null){
+
+                        let newTotal = Number(document.getElementById("totalCartPrice").innerHTML) + Number(document.getElementById("product-promotionPrice").value)
+                        document.getElementById("totalCartPrice").innerHTML = newTotal;
+
+                        document.getElementById("totalCart").innerHTML = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(newTotal);
+                    }
+
                 }else if(error.responseText === "sl"){
                     toastDanger("Thất bại","Số lượng sản phẩm quá nhiều");
                 }else {

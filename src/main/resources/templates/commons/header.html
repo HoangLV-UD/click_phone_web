@@ -24,7 +24,7 @@
                                     <a href="/cart">Giỏ hàng</a>
                                 </li>
                                 <li>
-                                    <a href="/check-out">Thanh toán</a>
+                                    <a href="/logout">Đăng xuất</a>
                                 </li>
                             </ul>
                         </nav>
@@ -40,8 +40,7 @@
                 <div class="col-lg-3">
                     <div class="brand-logo">
                         <a href="/">
-                            <img width="80px" src="https://cdn-icons-png.flaticon.com/512/809/809052.png"
-                                 alt="brand logo">
+                            <img width="80px" src="https://cdn-icons-png.flaticon.com/512/809/809052.png" alt="brand logo">
                         </a>
                         </br>
                         <span style="font-size: 35px;color: #d8373e;">TechCam</span>
@@ -79,10 +78,10 @@
                             </div>
                         </div>
                         <div class="header-middle-block">
-                            <form th:action="@{/home}" method="get" class="header-middle-searchbox">
-                                <input type="text" placeholder="Search..." id="search1" class="search1" name="name">
-                                <button id="searchProduct" class="search-btn" type="submit" onclick="searchProduct()"><i class="fa fa-search"></i></button>
-                            </form>
+                            <div class="header-middle-searchbox">
+                                <input type="text" placeholder="Search..." id="search1">
+                                <button id="searchProduct" class="search-btn"><i class="fa fa-search"></i></button>
+                            </div>
                             <div class="header-mini-cart" onclick="onViewCart()">
                                 <div class="mini-cart-btn">
                                     <i class="fa fa-shopping-cart"></i>
@@ -92,7 +91,7 @@
                                     <span>total</span>
                                     0
                                 </div>
-
+                           
                             </div>
                         </div>
                     </div>
@@ -134,7 +133,7 @@
                                     <li><a href="#">Khuyến mại <i class="fa fa-angle-down"></i></a>
 
                                     </li>
-                                    <li><a type="button" onclick="historyOrderCustomer()">Lịch Sử</a></li>
+                                    <li><a type="button" th:href="@{/your-orders/orders}">Lịch Sử</a></li>
                                 </ul>
                             </nav>
                         </div>
@@ -195,11 +194,11 @@
             </div>
         </div>
     </div>
-    <!--<script>-->
-    <!--    function onViewCart() {-->
-    <!--        window.location.href = '/cart'-->
-    <!--    }-->
-    <!--    function historyOrderCustomer(){-->
+<script>
+    function onViewCart() {
+        window.location.href = '/cart'
+    }
+<!--    function historyOrderCustomer(){-->
 
     <!--        $('#modal-phone-number').modal('show');-->
     <!--    }-->
@@ -272,22 +271,22 @@
     <!--            },-->
     <!--            error: function (error) {-->
 
-    <!--            }-->
-    <!--        })-->
-    <!--    }-->
-    <!--    var s = 30;-->
-    <!--    function demlui(){-->
-    <!--        if(s>0){-->
-    <!--            s=s-1;-->
-    <!--            document.getElementById('thu-ma').innerText="nếu không nhận được mã thử lại sau "+s;-->
-    <!--        }else {-->
-    <!--            document.getElementById('thu-ma').innerText="Tôi không nhận được mã, vui lòng thử lại!";-->
-    <!--            document.getElementById('thu-lai-otp').style.display='block'-->
-    <!--            timeOut.clearTimeout(demlui);-->
-    <!--        }-->
-    <!--        var timeOut = setTimeout(demlui,1000);-->
-    <!--    }-->
-    <!--</script>-->
+<!--            }-->
+<!--        })-->
+<!--    }-->
+<!--    var s = 30;-->
+<!--    function demlui(){-->
+<!--        if(s>0){-->
+<!--            s=s-1;-->
+<!--            document.getElementById('thu-ma').innerText="nếu không nhận được mã thử lại sau "+s;-->
+<!--        }else {-->
+<!--            document.getElementById('thu-ma').innerText="Tôi không nhận được mã, vui lòng thử lại!";-->
+<!--            document.getElementById('thu-lai-otp').style.display='block'-->
+<!--            timeOut.clearTimeout(demlui);-->
+<!--        }-->
+<!--        var timeOut = setTimeout(demlui,1000);-->
+<!--    }-->
+</script>
 </header>
 
 </html>

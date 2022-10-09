@@ -35,6 +35,9 @@ public class ProductPropertyServiceImpl implements ProductPropertyService {
                     .quantity(o.getQuantity())
                     .id(String.valueOf(o.getId()))
                     .color(colorService.findById(o.getColorId()))
+                    .pricePromotion(o.getPricePromotion())
+                    .pricePromotionString(util.moneyToStringFormat(o.getPricePromotion()))
+                    .idPromotion(o.getPromotionId())
                     .build());
         });
         return responeList;
