@@ -6,6 +6,7 @@ import com.example.word_phone_web.entity.CustomerEntity;
 import com.example.word_phone_web.repo.CartRepo;
 import com.example.word_phone_web.repo.CustomerRepo;
 import com.example.word_phone_web.service.CartService;
+import com.example.word_phone_web.service.CategoryService;
 import com.example.word_phone_web.util.ConvertUtil;
 import com.example.word_phone_web.util.SessionUtil;
 import lombok.RequiredArgsConstructor;
@@ -35,6 +36,8 @@ public class CartIntercepter implements HandlerInterceptor {
 
     private final ConvertUtil convertUtil;
 
+    private final CategoryService categoryService;
+
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         long totalCart = 0;
@@ -42,16 +45,13 @@ public class CartIntercepter implements HandlerInterceptor {
         if(String.valueOf(sessionUtil.getObject("username")) != null){
             List<CartRespone> listCart = cartService.findByCustomer();
             sizeCart = listCart.size();
-
-
             for (CartRespone respone: listCart
                  ) {
                 totalCart+= respone.getTotal();
             }
-
-
         }
         request.setAttribute("sizeCart", sizeCart);
+        request.setAttribute("category", categoryService.findByCategoryAndDeleteFlagIsFalse());
         request.setAttribute("totalCart", convertUtil.moneyToStringFormat(totalCart));
         request.setAttribute("totalCartPrice", totalCart);
         return true;

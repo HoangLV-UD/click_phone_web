@@ -44,6 +44,7 @@ public class ProductServiceImpl implements ProductService {
         List<NewProductRespone> listPro = new ArrayList<>();
         List<ProductEntity> list = productRepo.findAll();
         for (ProductEntity product : list) {
+            boolean check = true;
             NewProductRespone productRespone = new NewProductRespone();
             productRespone.setId(String.valueOf(product.getId()));
             productRespone.setName(product.getName());
@@ -52,14 +53,24 @@ public class ProductServiceImpl implements ProductService {
             productRespone.setSrcImage(imageService.getAllImageByProduct(String.valueOf(productRespone.getId())));
             productRespone.setRomRespones(romService.findByProductId(Long.valueOf(productRespone.getId())));
             productRespone.setAttributeRespone(attributeService.findByProduct(Long.valueOf(productRespone.getId())));
-            for (RomRespone romEntity : productRespone.getRomRespones()) {
-                List<ProductPropertyEntity> productPropertyEntities = productPropertyRepo.findByRomId(Long.parseLong(romEntity.getId()));
-                for (ProductPropertyEntity listProductProperty : productPropertyEntities) {
-                    productRespone.setPrice(convertUtil.moneyToStringFormat(listProductProperty.getPrice()));
-                    productRespone.setPricePromotion(listProductProperty.getPricePromotion());
+            int size = productRespone.getRomRespones().size();
+            for (int i = 0; i < size; i++) {
+                List<ProductPropertyEntity> productPropertyEntities = productPropertyRepo.findByRomId(Long.parseLong(productRespone.getRomRespones().get(i).getId()));
+                if(productPropertyEntities == null || productPropertyEntities.size() == 0){
+                    check = false;
+                    productRespone.getRomRespones().remove(i);
+                    size--;
+                    continue;
+                }else {
+                    for (ProductPropertyEntity listProductProperty : productPropertyEntities) {
+                        productRespone.setPrice(convertUtil.moneyToStringFormat(listProductProperty.getPrice()));
+                        productRespone.setPricePromotion(listProductProperty.getPricePromotion());
+                    }
                 }
             }
-            listPro.add(productRespone);
+            if(check){
+                listPro.add(productRespone);
+            }
         }
 
         return listPro;

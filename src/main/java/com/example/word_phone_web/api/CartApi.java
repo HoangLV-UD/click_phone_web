@@ -32,7 +32,7 @@ public class CartApi {
         if(check.equals("false")){
             return ResponseEntity.badRequest().body("false");
         } else{
-            return ResponseEntity.badRequest().body("sl");
+            return ResponseEntity.badRequest().body(check);
         }
 
     }
