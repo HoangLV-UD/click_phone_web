@@ -1,6 +1,8 @@
 package com.example.word_phone_web.service.impl;
 
+import com.example.word_phone_web.dto.respone.product.ProductPropertyRespone;
 import com.example.word_phone_web.dto.respone.rom.RomRespone;
+import com.example.word_phone_web.entity.ProductPropertyEntity;
 import com.example.word_phone_web.entity.RomEntity;
 import com.example.word_phone_web.repo.RomRepo;
 import com.example.word_phone_web.service.ProductPropertyService;
@@ -31,6 +33,10 @@ public class RomServiceImpl implements RomService {
                     .productPropertyRespones(productPropertyService.findByRomId(o.getId()))
                     .build());
         });
+        for (RomEntity e: romEntities
+             ) {
+            List<ProductPropertyRespone>  propertyEntity = productPropertyService.findByRomId(e.getId());
+        }
         return list;
     }
 

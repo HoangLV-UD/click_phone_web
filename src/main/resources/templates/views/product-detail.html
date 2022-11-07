@@ -901,6 +901,7 @@
     function addCart(){
         console.log(document.getElementById("quantityCart").value)
         console.log(document.getElementById("idProductProper").value)
+        console.log($('#quantityProduct').val() + '     a')
         let data = {
             "idProduct" : document.getElementById("idProductProper").value,
             "quantityCart" : document.getElementById("quantityCart").value
@@ -936,7 +937,7 @@
                 }else if(error.responseText === "sl"){
                     toastDanger("Thất bại","Số lượng sản phẩm quá nhiều");
                 }else {
-                    toastDanger("Thất bại","Lỗi hệ thống");
+                    toastDanger("Thất bại",error.responseText);
                 }
 
 

@@ -43,8 +43,6 @@ public class HomeController {
             model.addAttribute("products", respone);
             return "views/home/index-2";
         }
-        List<CategoryEntity> categoryEntities = categoryService.findByCategoryAndDeleteFlagIsFalse();
-        model.addAttribute("categories", categoryEntities);
         model.addAttribute("products", respone);
         return "views/home/index-2";
     }

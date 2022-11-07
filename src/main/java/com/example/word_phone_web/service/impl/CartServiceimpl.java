@@ -60,9 +60,18 @@ public class CartServiceimpl implements CartService {
             entity.setIdCustomer(customerEntity.getId());
             CartEntity entity1 = cartRepo.findByDeleteFlagIsFalseAndIdCustomerAndIdProduct(customerEntity.getId(), propertyEntity);
             if(entity1 == null){
+                if(propertyEntity.getQuantity() == 0){
+                    return "Quá số lượng sản phẩm trong kho";
+                }
                 cartRepo.save(entity);
                 return "ok";
             }else {
+                if(entity1.getQuantity() - propertyEntity.getQuantity() >= 0){
+                    return "Quá số lượng sản phẩm trong kho";
+                }
+                if(propertyEntity.getQuantity() < entity1.getQuantity() || propertyEntity.getQuantity() == 0){
+                    return "Quá số lượng sản phẩm trong kho";
+                }
                 entity1.setQuantity(entity1.getQuantity() + entity.getQuantity());
                 if(entity1.getQuantity() > 5){
                     return "sl";

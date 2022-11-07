@@ -106,20 +106,18 @@
                 <div class="col-lg-12">
                     <div class="main-header-inner">
                         <div class="category-toggle-wrap">
-                            <form>
-                            <select onchange="this.form.submit()" id="categories" th:name="categori" class="categories">
-                                <option value="">--------Danh mục--------</option>
-                                <th:block th:each="category : ${categories}">
-                                    <option th:value="${category.id}"
-                                            th:utext="${category.name}">
-                                    </option>
-                                </th:block>
-                                <option>---------------</option>
-                            </select>
-                            </form>
+                            <div class="category-toggle">
+                                Danh Mục
+                                <div class="cat-icon">
+                                    <i class="fa fa-angle-down"></i>
+                                </div>
+                            </div>
                             <nav class="category-menu hm-1">
                                 <ul>
-
+                                    <th:block th:each="cart : ${category}">
+                                        <li><a  th:href="@{'home?categori=' + ${cart.id}}">
+                                            [[${cart.name}]]</a></li>
+                                    </th:block>
                                 </ul>
                             </nav>
                         </div>
@@ -127,10 +125,6 @@
                             <nav id="mobile-menu">
                                 <ul>
                                     <li class="active"><a th:href="@{/home}"><i class="fa fa-home"></i>Trang chủ</i></a>
-
-                                    </li>
-
-                                    <li><a href="#">Khuyến mại <i class="fa fa-angle-down"></i></a>
 
                                     </li>
                                     <li><a type="button" th:href="@{/your-orders/orders}">Lịch Sử</a></li>

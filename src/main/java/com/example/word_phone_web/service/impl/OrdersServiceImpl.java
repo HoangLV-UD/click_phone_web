@@ -70,7 +70,7 @@ public class OrdersServiceImpl implements OrderService {
                      ) {
                     OrdersDetailEntity ordersDetailEntity = new OrdersDetailEntity();
                     ProductPropertyEntity propertyEntity = productPropertyRepo.findByDeleteFlagIsFalseAndId(cart.getIdProduct().getId());
-                    propertyEntity.setQuantity(propertyEntity.getQuantity() - cart.getQuantity());
+                    //propertyEntity.setQuantity(propertyEntity.getQuantity() - cart.getQuantity());
 
                     ordersDetailEntity.setOrdersEntity(ordersEntity1);
                     ordersDetailEntity.setQuantity(cart.getQuantity());
@@ -116,7 +116,7 @@ public class OrdersServiceImpl implements OrderService {
             ) {
                 OrdersDetailEntity ordersDetailEntity = new OrdersDetailEntity();
                 ProductPropertyEntity propertyEntity = productPropertyRepo.findByDeleteFlagIsFalseAndId(cart.getIdProduct().getId());
-                propertyEntity.setQuantity(propertyEntity.getQuantity() - cart.getQuantity());
+                //propertyEntity.setQuantity(propertyEntity.getQuantity() - cart.getQuantity());
 
                 ordersDetailEntity.setOrdersEntity(ordersEntity1);
                 ordersDetailEntity.setQuantity(cart.getQuantity());
