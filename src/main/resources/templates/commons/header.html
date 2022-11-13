@@ -40,7 +40,8 @@
                 <div class="col-lg-3">
                     <div class="brand-logo">
                         <a href="/">
-                            <img width="80px" src="https://cdn-icons-png.flaticon.com/512/809/809052.png" alt="brand logo">
+                            <img width="80px" src="https://cdn-icons-png.flaticon.com/512/809/809052.png"
+                                 alt="brand logo">
                         </a>
                         </br>
                         <span style="font-size: 35px;color: #d8373e;">TechCam</span>
@@ -91,7 +92,7 @@
                                     <span>total</span>
                                     0
                                 </div>
-                           
+
                             </div>
                         </div>
                     </div>
@@ -115,7 +116,7 @@
                             <nav class="category-menu hm-1">
                                 <ul>
                                     <th:block th:each="cart : ${category}">
-                                        <li><a  th:href="@{'home?categori=' + ${cart.id}}">
+                                        <li><a th:href="@{'home/'+${cart.id}}">
                                             [[${cart.name}]]</a></li>
                                     </th:block>
                                 </ul>
@@ -188,100 +189,101 @@
             </div>
         </div>
     </div>
-<script>
+    <script>
 
-    function onViewCart() {
-        window.location.href = '/cart'
-    }
-<!--    function historyOrderCustomer(){-->
+        function onViewCart() {
+            window.location.href = '/cart'
+        }
 
-    <!--        $('#modal-phone-number').modal('show');-->
-    <!--    }-->
-    <!--    var code = ""-->
-    <!--    var dateCode ;-->
-    <!--    var phoneNumberCode="";-->
-    <!--    function confimOtp(){-->
-    <!--        var codeConfirm = document.getElementById('historyPhoneSenMail').value-->
-    <!--        var  now= new Date();-->
-    <!--        console.log(now)-->
-    <!--        console.log(dateCode)-->
-    <!--        console.log(now.getTime())-->
-    <!--        if(code== codeConfirm  && now.getTime()- dateCode < 30*1000){-->
-    <!--            window.location.href="/history?key="+phoneNumberCode-->
-    <!--        }else {-->
-    <!--            document.getElementById('errorHistoryPhoneSenMail').innerText="Mã xác nhận không đúng mời nhập lại"-->
-    <!--        }-->
-    <!--    }-->
-    <!--    function thuLaiOtp(){-->
-    <!--        s=30-->
-    <!--        $.ajax({-->
-    <!--            url:'/history/phone-number?phoneNumber='+phoneNumberCode,-->
-    <!--            type: 'GET',-->
-    <!--            contentType: 'application/json',-->
-    <!--            success: function (result) {-->
-    <!--                if (result.status == 'SUCCESS') {-->
-    <!--                    $('#modal-phone-number').modal('hide');-->
-    <!--                    $('#modal-send-email').modal('show');-->
-    <!--                    document.getElementById('title-send-mail').innerText="Mã xác nhận đã được gửi đến số điện thoại "+ result.phoneNumber-->
-    <!--                    code= result.code-->
-    <!--                    dateCode=result.dateSend-->
-    <!--                    phoneNumberCode =result.phoneNumber-->
-    <!--                    demlui();-->
-    <!--                }else {-->
-    <!--                    document.getElementById('errorHistoryPhone').innerText="Gửi otp thất bại";-->
-    <!--                }-->
-    <!--            },-->
-    <!--            error: function (error) {-->
+        <!--    function historyOrderCustomer(){-->
 
-    <!--            }-->
-    <!--        })-->
-    <!--    }-->
-    <!--    function checkHistory(){-->
-    <!--        document.getElementById('errorHistoryPhone').innerText=""-->
-    <!--        var phoneNumber = document.getElementById('historyPhone').value-->
-    <!--        const patternPhone = /^(84|0[3|5|7|8|9])+([0-9]{8})\b$/i;-->
-    <!--        if(phoneNumber == ""){-->
-    <!--            document.getElementById('errorHistoryPhone').innerText="Bạn chưa nhập số điệnh thoại";-->
-    <!--            return-->
-    <!--        }else if(!patternPhone.test(phoneNumber)){-->
-    <!--            document.getElementById('errorHistoryPhone').innerText="Số điện thoại không đúng mời nhập lại!";-->
-    <!--            return;-->
-    <!--        }-->
-    <!--        $.ajax({-->
-    <!--            url:'/history/phone-number?phoneNumber='+phoneNumber,-->
-    <!--            type: 'GET',-->
-    <!--            contentType: 'application/json',-->
-    <!--            success: function (result) {-->
-    <!--                if (result.status == 'SUCCESS') {-->
-    <!--                    $('#modal-phone-number').modal('hide');-->
-    <!--                    $('#modal-send-email').modal('show');-->
-    <!--                    document.getElementById('title-send-mail').innerText="Mã xác nhận đã được gửi đến số điện thoại "+ result.phoneNumber-->
-    <!--                    code= result.code-->
-    <!--                    dateCode=result.dateSend-->
-    <!--                    phoneNumberCode =result.phoneNumber-->
-    <!--                    demlui();-->
-    <!--                }else {-->
-    <!--                    document.getElementById('errorHistoryPhone').innerText="Gửi otp thất bại";-->
-    <!--                }-->
-    <!--            },-->
-    <!--            error: function (error) {-->
+        <!--        $('#modal-phone-number').modal('show');-->
+        <!--    }-->
+        <!--    var code = ""-->
+        <!--    var dateCode ;-->
+        <!--    var phoneNumberCode="";-->
+        <!--    function confimOtp(){-->
+        <!--        var codeConfirm = document.getElementById('historyPhoneSenMail').value-->
+        <!--        var  now= new Date();-->
+        <!--        console.log(now)-->
+        <!--        console.log(dateCode)-->
+        <!--        console.log(now.getTime())-->
+        <!--        if(code== codeConfirm  && now.getTime()- dateCode < 30*1000){-->
+        <!--            window.location.href="/history?key="+phoneNumberCode-->
+        <!--        }else {-->
+        <!--            document.getElementById('errorHistoryPhoneSenMail').innerText="Mã xác nhận không đúng mời nhập lại"-->
+        <!--        }-->
+        <!--    }-->
+        <!--    function thuLaiOtp(){-->
+        <!--        s=30-->
+        <!--        $.ajax({-->
+        <!--            url:'/history/phone-number?phoneNumber='+phoneNumberCode,-->
+        <!--            type: 'GET',-->
+        <!--            contentType: 'application/json',-->
+        <!--            success: function (result) {-->
+        <!--                if (result.status == 'SUCCESS') {-->
+        <!--                    $('#modal-phone-number').modal('hide');-->
+        <!--                    $('#modal-send-email').modal('show');-->
+        <!--                    document.getElementById('title-send-mail').innerText="Mã xác nhận đã được gửi đến số điện thoại "+ result.phoneNumber-->
+        <!--                    code= result.code-->
+        <!--                    dateCode=result.dateSend-->
+        <!--                    phoneNumberCode =result.phoneNumber-->
+        <!--                    demlui();-->
+        <!--                }else {-->
+        <!--                    document.getElementById('errorHistoryPhone').innerText="Gửi otp thất bại";-->
+        <!--                }-->
+        <!--            },-->
+        <!--            error: function (error) {-->
 
-<!--            }-->
-<!--        })-->
-<!--    }-->
-<!--    var s = 30;-->
-<!--    function demlui(){-->
-<!--        if(s>0){-->
-<!--            s=s-1;-->
-<!--            document.getElementById('thu-ma').innerText="nếu không nhận được mã thử lại sau "+s;-->
-<!--        }else {-->
-<!--            document.getElementById('thu-ma').innerText="Tôi không nhận được mã, vui lòng thử lại!";-->
-<!--            document.getElementById('thu-lai-otp').style.display='block'-->
-<!--            timeOut.clearTimeout(demlui);-->
-<!--        }-->
-<!--        var timeOut = setTimeout(demlui,1000);-->
-<!--    }-->
-</script>
+        <!--            }-->
+        <!--        })-->
+        <!--    }-->
+        <!--    function checkHistory(){-->
+        <!--        document.getElementById('errorHistoryPhone').innerText=""-->
+        <!--        var phoneNumber = document.getElementById('historyPhone').value-->
+        <!--        const patternPhone = /^(84|0[3|5|7|8|9])+([0-9]{8})\b$/i;-->
+        <!--        if(phoneNumber == ""){-->
+        <!--            document.getElementById('errorHistoryPhone').innerText="Bạn chưa nhập số điệnh thoại";-->
+        <!--            return-->
+        <!--        }else if(!patternPhone.test(phoneNumber)){-->
+        <!--            document.getElementById('errorHistoryPhone').innerText="Số điện thoại không đúng mời nhập lại!";-->
+        <!--            return;-->
+        <!--        }-->
+        <!--        $.ajax({-->
+        <!--            url:'/history/phone-number?phoneNumber='+phoneNumber,-->
+        <!--            type: 'GET',-->
+        <!--            contentType: 'application/json',-->
+        <!--            success: function (result) {-->
+        <!--                if (result.status == 'SUCCESS') {-->
+        <!--                    $('#modal-phone-number').modal('hide');-->
+        <!--                    $('#modal-send-email').modal('show');-->
+        <!--                    document.getElementById('title-send-mail').innerText="Mã xác nhận đã được gửi đến số điện thoại "+ result.phoneNumber-->
+        <!--                    code= result.code-->
+        <!--                    dateCode=result.dateSend-->
+        <!--                    phoneNumberCode =result.phoneNumber-->
+        <!--                    demlui();-->
+        <!--                }else {-->
+        <!--                    document.getElementById('errorHistoryPhone').innerText="Gửi otp thất bại";-->
+        <!--                }-->
+        <!--            },-->
+        <!--            error: function (error) {-->
+
+        <!--            }-->
+        <!--        })-->
+        <!--    }-->
+        <!--    var s = 30;-->
+        <!--    function demlui(){-->
+        <!--        if(s>0){-->
+        <!--            s=s-1;-->
+        <!--            document.getElementById('thu-ma').innerText="nếu không nhận được mã thử lại sau "+s;-->
+        <!--        }else {-->
+        <!--            document.getElementById('thu-ma').innerText="Tôi không nhận được mã, vui lòng thử lại!";-->
+        <!--            document.getElementById('thu-lai-otp').style.display='block'-->
+        <!--            timeOut.clearTimeout(demlui);-->
+        <!--        }-->
+        <!--        var timeOut = setTimeout(demlui,1000);-->
+        <!--    }-->
+    </script>
 </header>
 
 </html>

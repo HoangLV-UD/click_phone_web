@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -21,29 +22,23 @@ public class HomeController {
     private CategoryService categoryService;
     @Autowired
     private ProductService productService;
+
     @GetMapping("")
-    public String getProductByName(Model model,
-                                   @RequestParam(name = "name", required = false) String name,
-                                   @RequestParam(name = "categori", required = false) String id) {
-        List<NewProductRespone> respone;
-        if(StringUtils.hasText(name)){
-            respone = productService.findByName(name);
-            if (null == respone) {
-                System.out.println("No found");
-                return "redirect:/product/home";
+    public String getProductByName(Model model) {
+        List<CategoryEntity> listCTs = categoryService.findByCategoryAndDeleteFlagIsFalse();
+        if (listCTs != null) {
+            for (var categori : listCTs
+            ) {
+                List<NewProductRespone> listIps = productService.findByCateId(categori.getId());
+                model.addAttribute("sp" + categori.getId(), listIps);
             }
-        }else if(StringUtils.hasText(id)){
-            respone = productService.findByCateId(Long.parseLong(id));
-            if (null == respone) {
-                System.out.println("No found");
-                return "redirect:/product/home";
-            }
-        }else {
-            respone =  productService.findAll() ;
-            model.addAttribute("products", respone);
-            return "views/home/index-2";
         }
-        model.addAttribute("products", respone);
         return "views/home/index-2";
+    }
+    @GetMapping("{id}")
+    public String getProductByCategori(Model model, @PathVariable("id") String id) {
+        List<NewProductRespone> listIps = productService.findByCateId(Long.parseLong(id));
+        model.addAttribute("products", listIps);
+        return "views/home/categori";
     }
 }
