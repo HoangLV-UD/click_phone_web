@@ -19,14 +19,4 @@ public class ProductApi {
     private  final ProductService productService;
     private  final ProductRepo productRepo;
 
-    @PutMapping("/favorite/{id}")
-    public ResponseEntity<?> addFavorite(@PathVariable("id") Long id){
-        Optional<ProductEntity> respone = productRepo.findByIdProduct(id);
-        if (respone.isPresent()){
-            ProductEntity productEntity = respone.get();
-            productEntity.setFavorite(true);
-            productRepo.save(productEntity);
-        }
-        return  ResponseEntity.ok().body(respone);
-    }
 }

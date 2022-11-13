@@ -26,9 +26,6 @@ public class ProductEntity extends BaseEntity{
     private String status;
 
     @Basic
-    @Column(name = "FAVORITE")
-    private boolean favorite = false;
-    @Basic
     @Column(name = "NOTE")
     private String note;
 
@@ -85,11 +82,4 @@ public class ProductEntity extends BaseEntity{
         this.note = note;
     }
 
-    public boolean isFavorite() {
-        return favorite;
-    }
-
-    public void setFavorite(boolean favorite) {
-        this.favorite = favorite;
-    }
 }
