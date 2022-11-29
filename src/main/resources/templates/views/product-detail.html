@@ -18,7 +18,7 @@
                 <div class="breadcrumb-wrap">
                     <nav aria-label="breadcrumb">
                         <ul class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                            <li class="breadcrumb-item"><a href="/home/index">Home</a></li>
                             <li class="breadcrumb-item"><a href="shop-grid-left-sidebar.html">shop</a></li>
                             <li class="breadcrumb-item active" aria-current="page">product details variable</li>
                         </ul>
@@ -102,7 +102,7 @@
                                     <h5>Bộ nhớ trong :</h5>
                                     <select id="rom-product-detail" class="nice-select" onchange="changeRom()">
                                         <th:block th:each = "rom : ${product.romRespones}">
-                                            <option th:text="${rom.name} + ' GB'" th:value="${rom.id}"></option>
+                                            <option th:text="${rom.name}" th:value="${rom.id}"></option>
                                         </th:block>
                                     </select>
                                 </div>
@@ -787,49 +787,6 @@
 <!-- product details wrapper end -->
 
 
-<!-- brand area start -->
-<div class="brand-area pt-28 pb-30 pt-md-14 pt-sm-14">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="section-title mb-30">
-                    <div class="title-icon">
-                        <i class="fa fa-crop"></i>
-                    </div>
-                    <h3>Popular Brand</h3>
-                </div> <!-- section title end -->
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-12">
-                <div class="brand-active slick-padding slick-arrow-style">
-                    <div class="brand-item text-center">
-                        <a href="#"><img src="assets/img/brand/br1.png" alt=""></a>
-                    </div>
-                    <div class="brand-item text-center">
-                        <a href="#"><img src="assets/img/brand/br2.png" alt=""></a>
-                    </div>
-                    <div class="brand-item text-center">
-                        <a href="#"><img src="assets/img/brand/br3.png" alt=""></a>
-                    </div>
-                    <div class="brand-item text-center">
-                        <a href="#"><img src="assets/img/brand/br4.png" alt=""></a>
-                    </div>
-                    <div class="brand-item text-center">
-                        <a href="#"><img src="assets/img/brand/br5.png" alt=""></a>
-                    </div>
-                    <div class="brand-item text-center">
-                        <a href="#"><img src="assets/img/brand/br6.png" alt=""></a>
-                    </div>
-                    <div class="brand-item text-center">
-                        <a href="#"><img src="assets/img/brand/br4.png" alt=""></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- brand area end -->
 <!--<input id="sessionStaff" hidden type="text" th:value="${session.staff.id}" th:if="${session.staff != null}">-->
 <!--<input id="sessionStaff" hidden type="text" value="-1" th:if="${session.staff == null}">-->
 

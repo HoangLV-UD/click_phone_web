@@ -44,7 +44,7 @@
                                  alt="brand logo">
                         </a>
                         </br>
-                        <span style="font-size: 35px;color: #d8373e;">TechCam</span>
+                        <span style="font-size: 35px;color: #d8373e;">WorldPhone</span>
                     </div>
                 </div>
                 <div class="col-lg-9">
@@ -86,11 +86,10 @@
                             <div class="header-mini-cart" onclick="onViewCart()">
                                 <div class="mini-cart-btn">
                                     <i class="fa fa-shopping-cart"></i>
-                                    <span id="sizeCart" class="cart-notification">2</span>
+                                    <span id="sizeCart" class="cart-notification" th:text="${sizeCart}"></span>
                                 </div>
                                 <div style="font-size: 16px" id="total" class="cart-total-price">
-                                    <span>total</span>
-                                    0
+                                    Giỏ hàng
                                 </div>
 
                             </div>
@@ -125,7 +124,7 @@
                         <div class="main-menu">
                             <nav id="mobile-menu">
                                 <ul>
-                                    <li class="active"><a th:href="@{/home}"><i class="fa fa-home"></i>Trang chủ</i></a>
+                                    <li class="active"><a th:href="@{/home/index}"><i class="fa fa-home"></i>Trang chủ</i></a>
 
                                     </li>
                                     <li><a type="button" th:href="@{/your-orders/orders}">Lịch Sử</a></li>

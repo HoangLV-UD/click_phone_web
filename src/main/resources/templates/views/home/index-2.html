@@ -51,24 +51,24 @@
         <div class="switcher-panel-item bg">
             <h3>Background Pattern</h3>
             <ul class="nav flex-wrap bgbody-style bg-pattern">
-                <li><img src="assets/img/bg-panel/bg-pettern/1.png" alt="Pettern"></li>
-                <li><img src="assets/img/bg-panel/bg-pettern/2.png" alt="Pettern"></li>
-                <li><img src="assets/img/bg-panel/bg-pettern/3.png" alt="Pettern"></li>
-                <li><img src="assets/img/bg-panel/bg-pettern/4.png" alt="Pettern"></li>
-                <li><img src="assets/img/bg-panel/bg-pettern/5.png" alt="Pettern"></li>
-                <li><img src="assets/img/bg-panel/bg-pettern/6.png" alt="Pettern"></li>
+                <li><img th:src="@{/assets/img/bg-panel/bg-pettern/1.png}" alt="Pettern"></li>
+                <li><img th:src="@{/assets/img/bg-panel/bg-pettern/2.png}" alt="Pettern"></li>
+                <li><img th:src="@{/assets/img/bg-panel/bg-pettern/3.png}" alt="Pettern"></li>
+                <li><img th:src="@{/assets/img/bg-panel/bg-pettern/4.png}" alt="Pettern"></li>
+                <li><img th:src="@{/assets/img/bg-panel/bg-pettern/5.png}" alt="Pettern"></li>
+                <li><img th:src="@{/assets/img/bg-panel/bg-pettern/6.png}" alt="Pettern"></li>
             </ul>
         </div>
 
         <div class="switcher-panel-item bg">
             <h3>Background Image</h3>
             <ul class="nav flex-wrap bgbody-style bg-img">
-                <li><img src="assets/img/bg-panel/bg-img/01.jpg" alt="Images"></li>
-                <li><img src="assets/img/bg-panel/bg-img/02.jpg" alt="Images"></li>
-                <li><img src="assets/img/bg-panel/bg-img/03.jpg" alt="Images"></li>
-                <li><img src="assets/img/bg-panel/bg-img/04.jpg" alt="Images"></li>
-                <li><img src="assets/img/bg-panel/bg-img/05.jpg" alt="Images"></li>
-                <li><img src="assets/img/bg-panel/bg-img/06.jpg" alt="Images"></li>
+                <li><img th:src="@{/assets/img/bg-panel/bg-img/01.jpg}" alt="Images"></li>
+                <li><img th:src="@{/assets/img/bg-panel/bg-img/02.jpg}" alt="Images"></li>
+                <li><img th:src="@{/assets/img/bg-panel/bg-img/03.jpg}" alt="Images"></li>
+                <li><img th:src="@{/assets/img/bg-panel/bg-img/04.jpg}" alt="Images"></li>
+                <li><img th:src="@{/assets/img/bg-panel/bg-img/05.jpg}" alt="Images"></li>
+                <li><img th:src="@{/assets/img/bg-panel/bg-img/06.jpg}" alt="Images"></li>
             </ul>
         </div>
     </div>
@@ -594,7 +594,7 @@
                                     </h4>
                                     <div class="pricebox">
                                         <span class="regular-price"
-                                              th:text="${product.romRespones[0].productPropertyRespones[0].getPriceString()}"
+                                              th:text="${product.getRomRespones[0].getProductPropertyRespones[0].getPriceString()}"
                                         >$90.00</span>
                                         <div class="ratings">
                                             <span class="good"><i class="fa fa-star"></i></span>

@@ -2,20 +2,18 @@ package com.example.word_phone_web.service.impl;
 
 import com.example.word_phone_web.dto.respone.product.NewProductRespone;
 import com.example.word_phone_web.dto.respone.product.ProductRespone;
-import com.example.word_phone_web.dto.respone.rom.RomRespone;
 import com.example.word_phone_web.entity.CategoryEntity;
 import com.example.word_phone_web.entity.ProductEntity;
 import com.example.word_phone_web.entity.ProductPropertyEntity;
-import com.example.word_phone_web.entity.RomEntity;
 import com.example.word_phone_web.repo.CategoryRepo;
 import com.example.word_phone_web.repo.ProductPropertyRepo;
 import com.example.word_phone_web.repo.ProductRepo;
-import com.example.word_phone_web.service.ImageService;
 import com.example.word_phone_web.service.ProductService;
-import com.example.word_phone_web.service.RomService;
 import com.example.word_phone_web.util.ConvertUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -40,39 +38,31 @@ public class ProductServiceImpl implements ProductService {
     private final ProductPropertyRepo productPropertyRepo;
 
     @Override
-    public List<NewProductRespone>  findAll() {
+    public List<NewProductRespone> findAll(Pageable pageable) {
         List<NewProductRespone> listPro = new ArrayList<>();
-        List<ProductEntity> list = productRepo.findAll();
+        List<ProductEntity> list = productRepo.findByRandomTop20(pageable);
+        int i = 0;
         for (ProductEntity product : list) {
-            boolean check = true;
-            NewProductRespone productRespone = new NewProductRespone();
-            productRespone.setId(String.valueOf(product.getId()));
-            productRespone.setName(product.getName());
-            productRespone.setNote(product.getNote());
-            productRespone.setImageKey(product.getImage_key());
-            productRespone.setSrcImage(imageService.getAllImageByProduct(String.valueOf(productRespone.getId())));
-            productRespone.setRomRespones(romService.findByProductId(Long.valueOf(productRespone.getId())));
-            productRespone.setAttributeRespone(attributeService.findByProduct(Long.valueOf(productRespone.getId())));
-            int size = productRespone.getRomRespones().size();
-            for (int i = 0; i < size; i++) {
-                List<ProductPropertyEntity> productPropertyEntities = productPropertyRepo.findByRomId(Long.parseLong(productRespone.getRomRespones().get(i).getId()));
-                if(productPropertyEntities == null || productPropertyEntities.size() == 0){
-                    check = false;
-                    productRespone.getRomRespones().remove(i);
-                    size--;
-                    continue;
-                }else {
-                    for (ProductPropertyEntity listProductProperty : productPropertyEntities) {
-                        productRespone.setPrice(convertUtil.moneyToStringFormat(listProductProperty.getPrice()));
-                        productRespone.setPricePromotion(listProductProperty.getPricePromotion());
+            //boolean check = true;
+            if(i < 10){
+                NewProductRespone productRespone = new NewProductRespone();
+                productRespone.setId(String.valueOf(product.getId()));
+                productRespone.setName(product.getName());
+                productRespone.setNote(product.getNote());
+                productRespone.setImageKey(product.getImage_key());
+                productRespone.setSrcImage(imageService.getAllImageByProduct(String.valueOf(productRespone.getId())));
+                productRespone.setRomRespones(romService.findByProductId(Long.valueOf(productRespone.getId())));
+                productRespone.setAttributeRespone(attributeService.findByProduct(Long.valueOf(productRespone.getId())));
+                if(productRespone.getRomRespones() != null && productRespone.getRomRespones().size() > 0){
+                    if(productRespone.getRomRespones().get(0).getProductPropertyRespones() != null && productRespone.getRomRespones().get(0).getProductPropertyRespones().get(0).getPriceString() != null){
+                        listPro.add(productRespone);
+
                     }
+
                 }
-            }
-            if(check){
-                listPro.add(productRespone);
+                i++;
             }
         }
-
         return listPro;
     }
 
@@ -102,7 +92,6 @@ public class ProductServiceImpl implements ProductService {
         Optional<CategoryEntity> categoryEntity = categoryRepo.findById(id);
         List<ProductEntity> list = productRepo.findByCategoryId(categoryEntity.get().getId());
         for (ProductEntity product : list) {
-            boolean check = true;
             NewProductRespone productRespone = new NewProductRespone();
             productRespone.setId(String.valueOf(product.getId()));
             productRespone.setName(product.getName());
@@ -111,23 +100,164 @@ public class ProductServiceImpl implements ProductService {
             productRespone.setSrcImage(imageService.getAllImageByProduct(String.valueOf(productRespone.getId())));
             productRespone.setRomRespones(romService.findByProductId(Long.valueOf(productRespone.getId())));
             productRespone.setAttributeRespone(attributeService.findByProduct(Long.valueOf(productRespone.getId())));
-            int size = productRespone.getRomRespones().size();
-            for (int i = 0; i < size; i++) {
-                List<ProductPropertyEntity> productPropertyEntities = productPropertyRepo.findByRomId(Long.parseLong(productRespone.getRomRespones().get(i).getId()));
-                if(productPropertyEntities == null || productPropertyEntities.size() == 0){
-                    check = false;
-                    productRespone.getRomRespones().remove(i);
-                    size--;
-                    continue;
-                }else {
-                    for (ProductPropertyEntity listProductProperty : productPropertyEntities) {
-                        productRespone.setPrice(convertUtil.moneyToStringFormat(listProductProperty.getPrice()));
-                        productRespone.setPricePromotion(listProductProperty.getPricePromotion());
-                    }
+            if(productRespone.getRomRespones() != null && productRespone.getRomRespones().size() > 0){
+                if(productRespone.getRomRespones().get(0).getProductPropertyRespones() != null && productRespone.getRomRespones().get(0).getProductPropertyRespones().get(0).getPriceString() != null){
+                    listPro.add(productRespone);
                 }
             }
-            if(check){
-                listPro.add(productRespone);
+        }
+        return listPro;
+    }
+
+    @Override
+    public List<NewProductRespone> findByIphone() {
+        List<NewProductRespone> listPro = new ArrayList<>();
+        List<ProductEntity> list = productRepo.findByCategoryId(1L);
+        for (ProductEntity product : list) {
+            //boolean check = true;
+            NewProductRespone productRespone = new NewProductRespone();
+            productRespone.setId(String.valueOf(product.getId()));
+            productRespone.setName(product.getName());
+            productRespone.setNote(product.getNote());
+            productRespone.setImageKey(product.getImage_key());
+            productRespone.setSrcImage(imageService.getAllImageByProduct(String.valueOf(productRespone.getId())));
+            productRespone.setRomRespones(romService.findByProductId(Long.valueOf(productRespone.getId())));
+            productRespone.setAttributeRespone(attributeService.findByProduct(Long.valueOf(productRespone.getId())));
+            if(productRespone.getRomRespones() != null && productRespone.getRomRespones().size() > 0){
+                if(productRespone.getRomRespones().get(0).getProductPropertyRespones() != null && productRespone.getRomRespones().get(0).getProductPropertyRespones().get(0).getPriceString() != null){
+                    listPro.add(productRespone);
+
+                }
+
+            }
+        }
+        return listPro;
+    }
+
+    @Override
+    public List<NewProductRespone> findBySamSung() {
+        List<NewProductRespone> listPro = new ArrayList<>();
+        List<ProductEntity> list = productRepo.findByCategoryId(2L);
+        for (ProductEntity product : list) {
+            //boolean check = true;
+            NewProductRespone productRespone = new NewProductRespone();
+            productRespone.setId(String.valueOf(product.getId()));
+            productRespone.setName(product.getName());
+            productRespone.setNote(product.getNote());
+            productRespone.setImageKey(product.getImage_key());
+            productRespone.setSrcImage(imageService.getAllImageByProduct(String.valueOf(productRespone.getId())));
+            productRespone.setRomRespones(romService.findByProductId(Long.valueOf(productRespone.getId())));
+            productRespone.setAttributeRespone(attributeService.findByProduct(Long.valueOf(productRespone.getId())));
+            if(productRespone.getRomRespones() != null && productRespone.getRomRespones().size() > 0){
+                if(productRespone.getRomRespones().get(0).getProductPropertyRespones() != null && productRespone.getRomRespones().get(0).getProductPropertyRespones().get(0).getPriceString() != null){
+                    listPro.add(productRespone);
+
+                }
+
+            }
+        }
+        return listPro;
+    }
+
+    @Override
+    public List<NewProductRespone> findByXiaomi() {
+        List<NewProductRespone> listPro = new ArrayList<>();
+        List<ProductEntity> list = productRepo.findByCategoryId(4L);
+        for (ProductEntity product : list) {
+            //boolean check = true;
+            NewProductRespone productRespone = new NewProductRespone();
+            productRespone.setId(String.valueOf(product.getId()));
+            productRespone.setName(product.getName());
+            productRespone.setNote(product.getNote());
+            productRespone.setImageKey(product.getImage_key());
+            productRespone.setSrcImage(imageService.getAllImageByProduct(String.valueOf(productRespone.getId())));
+            productRespone.setRomRespones(romService.findByProductId(Long.valueOf(productRespone.getId())));
+            productRespone.setAttributeRespone(attributeService.findByProduct(Long.valueOf(productRespone.getId())));
+            if(productRespone.getRomRespones() != null && productRespone.getRomRespones().size() > 0){
+                if(productRespone.getRomRespones().get(0).getProductPropertyRespones() != null && productRespone.getRomRespones().get(0).getProductPropertyRespones().get(0).getPriceString() != null){
+                    listPro.add(productRespone);
+
+                }
+
+            }
+        }
+        return listPro;
+    }
+
+    @Override
+    public List<NewProductRespone> findByOppo() {
+        List<NewProductRespone> listPro = new ArrayList<>();
+        List<ProductEntity> list = productRepo.findByCategoryId(5L);
+        for (ProductEntity product : list) {
+            //boolean check = true;
+            NewProductRespone productRespone = new NewProductRespone();
+            productRespone.setId(String.valueOf(product.getId()));
+            productRespone.setName(product.getName());
+            productRespone.setNote(product.getNote());
+            productRespone.setImageKey(product.getImage_key());
+            productRespone.setSrcImage(imageService.getAllImageByProduct(String.valueOf(productRespone.getId())));
+            productRespone.setRomRespones(romService.findByProductId(Long.valueOf(productRespone.getId())));
+            productRespone.setAttributeRespone(attributeService.findByProduct(Long.valueOf(productRespone.getId())));
+            if(productRespone.getRomRespones() != null && productRespone.getRomRespones().size() > 0){
+                if(productRespone.getRomRespones().get(0).getProductPropertyRespones() != null && productRespone.getRomRespones().get(0).getProductPropertyRespones().get(0).getPriceString() != null){
+                    listPro.add(productRespone);
+
+                }
+
+            }
+        }
+        return listPro;
+    }
+
+    @Override
+    public List<NewProductRespone> findByNokia() {
+        List<NewProductRespone> listPro = new ArrayList<>();
+        List<ProductEntity> list = productRepo.findByCategoryId(3L);
+        for (ProductEntity product : list) {
+            //boolean check = true;
+            NewProductRespone productRespone = new NewProductRespone();
+            productRespone.setId(String.valueOf(product.getId()));
+            productRespone.setName(product.getName());
+            productRespone.setNote(product.getNote());
+            productRespone.setImageKey(product.getImage_key());
+            productRespone.setSrcImage(imageService.getAllImageByProduct(String.valueOf(productRespone.getId())));
+            productRespone.setRomRespones(romService.findByProductId(Long.valueOf(productRespone.getId())));
+            productRespone.setAttributeRespone(attributeService.findByProduct(Long.valueOf(productRespone.getId())));
+            if(productRespone.getRomRespones() != null && productRespone.getRomRespones().size() > 0){
+                if(productRespone.getRomRespones().get(0).getProductPropertyRespones() != null && productRespone.getRomRespones().get(0).getProductPropertyRespones().get(0).getPriceString() != null){
+                    listPro.add(productRespone);
+
+                }
+
+            }
+        }
+        return listPro;
+    }
+
+    @Override
+    public List<NewProductRespone> findbyTop10() {
+        List<NewProductRespone> listPro = new ArrayList<>();
+        List<ProductEntity> list = productRepo.findByDeleteFlagIsFalseAndStatus();
+        int i = 0;
+        for (ProductEntity product : list) {
+            //boolean check = true;
+            if(i < 10){
+                NewProductRespone productRespone = new NewProductRespone();
+                productRespone.setId(String.valueOf(product.getId()));
+                productRespone.setName(product.getName());
+                productRespone.setNote(product.getNote());
+                productRespone.setImageKey(product.getImage_key());
+                productRespone.setSrcImage(imageService.getAllImageByProduct(String.valueOf(productRespone.getId())));
+                productRespone.setRomRespones(romService.findByProductId(Long.valueOf(productRespone.getId())));
+                productRespone.setAttributeRespone(attributeService.findByProduct(Long.valueOf(productRespone.getId())));
+                if(productRespone.getRomRespones() != null && productRespone.getRomRespones().size() > 0){
+                    if(productRespone.getRomRespones().get(0).getProductPropertyRespones() != null && productRespone.getRomRespones().get(0).getProductPropertyRespones().get(0).getPriceString() != null){
+                        listPro.add(productRespone);
+
+                    }
+
+                }
+                i++;
             }
         }
         return listPro;
@@ -164,6 +294,35 @@ public class ProductServiceImpl implements ProductService {
             }
             if(check){
                 listPro.add(productRespone);
+            }
+        }
+        return listPro;
+    }
+
+    @Override
+    public List<NewProductRespone> findbyRandom() {
+        List<NewProductRespone> listPro = new ArrayList<>();
+        List<ProductEntity> list = productRepo.findByRandom();
+        int i = 0;
+        for (ProductEntity product : list) {
+            //boolean check = true;
+            if(i < 10){
+                NewProductRespone productRespone = new NewProductRespone();
+                productRespone.setId(String.valueOf(product.getId()));
+                productRespone.setName(product.getName());
+                productRespone.setNote(product.getNote());
+                productRespone.setImageKey(product.getImage_key());
+                productRespone.setSrcImage(imageService.getAllImageByProduct(String.valueOf(productRespone.getId())));
+                productRespone.setRomRespones(romService.findByProductId(Long.valueOf(productRespone.getId())));
+                productRespone.setAttributeRespone(attributeService.findByProduct(Long.valueOf(productRespone.getId())));
+                if(productRespone.getRomRespones() != null && productRespone.getRomRespones().size() > 0){
+                    if(productRespone.getRomRespones().get(0).getProductPropertyRespones() != null && productRespone.getRomRespones().get(0).getProductPropertyRespones().get(0).getPriceString() != null){
+                        listPro.add(productRespone);
+
+                    }
+
+                }
+                i++;
             }
         }
         return listPro;

@@ -27,16 +27,16 @@ public class RomServiceImpl implements RomService {
         List<RomRespone> list = new ArrayList<>();
         List<RomEntity> romEntities = repo.findByProductId(id);
         romEntities.forEach(o -> {
-            list.add(RomRespone.builder()
-                    .name(o.getName())
-                    .id(String.valueOf(o.getId()))
-                    .productPropertyRespones(productPropertyService.findByRomId(o.getId()))
-                    .build());
+            if (productPropertyService.findByRomId(o.getId()) != null && productPropertyService.findByRomId(o.getId()).size() > 0){
+                list.add(RomRespone.builder()
+                        .name(o.getName())
+                        .id(String.valueOf(o.getId()))
+                        .productPropertyRespones(productPropertyService.findByRomId(o.getId()))
+                        .build());
+            }
+
         });
-        for (RomEntity e: romEntities
-             ) {
-            List<ProductPropertyRespone>  propertyEntity = productPropertyService.findByRomId(e.getId());
-        }
+
         return list;
     }
 
