@@ -57,7 +57,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     String username = userDetails.getUsername();
                     log.info("Login to " + username + " account successfully!");
                     System.out.println(request.getContextPath());
-                    response.sendRedirect("/home");
+                    response.sendRedirect("/home/index");
                     System.out.println(username + " config");
                     cookieUtil.add("username", username, 168); //7 days
                     sessionUtil.addObject("username", username);
