@@ -59,9 +59,12 @@ public class HomeController {
         List<NewProductRespone> listNokia = productService.findByNokia();
         List<NewProductRespone> listRandom = productService.findbyRandom();
         List<NewProductRespone> list = new ArrayList<>();
-        for (int i = listRandom.size() - 1; i > listRandom.size() - 3 ; i--) {
-            list.add(listRandom.get(i));
+        if(listRandom.size() > 2){
+            for (int i = listRandom.size() - 1; i > listRandom.size() - 3 ; i--) {
+                list.add(listRandom.get(i));
+            }
         }
+
         model.addAttribute("list", list);
         model.addAttribute("listSS", listSS);
         model.addAttribute("listOp", listOp);
