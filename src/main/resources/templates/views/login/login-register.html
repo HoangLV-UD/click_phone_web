@@ -94,7 +94,7 @@
                                         <div class="col-lg-6">
                                             <div class="single-input-item">
                                                 <input type="password" id="pass" placeholder="Enter your Password" required />
-                                                <input  id="check" value="0">
+                                                <input hidden  id="check" value="0">
                                             </div>
                                         </div>
                                         <div class="col-lg-6">
@@ -181,6 +181,7 @@
                 $.ajax({
                     url: `/api/login/phone?phone=${phone}`,
                     type: 'GET',
+                    async: false,
                     success: function (data) {
                         $('#check').val(1);
                         toastDanger("Thất bại" , "SĐT này đã tồn tại");
@@ -193,6 +194,7 @@
                 $.ajax({
                     url: `/api/login/count_login_false?email=${email}`,
                     type: 'GET',
+                    async: false,
                     success: function (data) {
                         $('#check').val(1);
                        toastDanger("Thất bại" , "Email này đã tồn tại");
@@ -229,7 +231,7 @@
                 toastSuccess("Thành công", "Bạn đã đăng ký thành công")
 
                 $.ajax({
-                    url: '/api/register',
+                    url: '/api/login/register',
                     type: 'POST',
                     contentType: 'application/json',
                     data: JSON.stringify(data),
