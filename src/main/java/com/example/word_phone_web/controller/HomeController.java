@@ -30,7 +30,7 @@ public class HomeController {
     @GetMapping("all")
     public String trangChu1(Model model , @RequestParam("page") String page) {
         //PageRequest pageRequest = PageRequest.of(Integer.parseInt(page) - 1, 16);
-        List<NewProductRespone> list = productService.findAll(PageRequest.of(Integer.valueOf(page) - 1, 4));
+        List<NewProductRespone> list = productService.findAll(PageRequest.of(Integer.valueOf(page) - 1, 8));
         model.addAttribute("list" , list);
         return "views/home/shop";
     }
@@ -78,7 +78,7 @@ public class HomeController {
     @GetMapping("{id}")
     public String getProductByCategori(Model model, @PathVariable("id") String id) {
         List<NewProductRespone> listIps = productService.findByCateId(Long.parseLong(id));
-        model.addAttribute("products", listIps);
-        return "views/home/categori";
+        model.addAttribute("list", listIps);
+        return "views/home/shop";
     }
 }
