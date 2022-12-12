@@ -115,7 +115,7 @@
                             <nav class="category-menu hm-1">
                                 <ul>
                                     <th:block th:each="cart : ${category}">
-                                        <li><a th:href="@{'home/'+${cart.id}}">
+                                        <li><a th:href="@{'/home/'+${cart.id}}">
                                             [[${cart.name}]]</a></li>
                                     </th:block>
                                 </ul>
