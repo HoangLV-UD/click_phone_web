@@ -28,6 +28,7 @@ public class AccountApi {
     @GetMapping("/count_login_false")
     public ResponseEntity<String> getCountLoginFalse(@RequestParam("email") String email) {
         log.info("login check");
+        System.out.println("hihihi");
         CustomerEntity staff = staffService.findByEmail(email);
         if (staff != null) {
             System.out.println(staff.getId());
