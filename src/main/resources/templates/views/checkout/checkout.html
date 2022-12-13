@@ -222,11 +222,13 @@
                         let khuyenMai = Math.round(Number(tong) - (Number(tong) / Number(100) * Number(result.discount)));
                         document.getElementById('priceOrderReal').value = khuyenMai;
                         document.getElementById('totalOrder').innerText = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(Number(khuyenMai));
+                        document.getElementById('voucherPrice').innerText = result.discount + ' %';
                         console.log(khuyenMai)
                     }else {
                         let khuyenMai =  Math.round(Number(tong) - Number(result.discount));
                         document.getElementById('priceOrderReal').value = khuyenMai;
-                        console.log(khuyenMai)
+                        console.log(khuyenMai + "voucherPrice")
+                        document.getElementById('voucherPrice').innerText = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(Number(result.discount));
                         document.getElementById('totalOrder').innerText = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(Number(khuyenMai));
 
                     }
