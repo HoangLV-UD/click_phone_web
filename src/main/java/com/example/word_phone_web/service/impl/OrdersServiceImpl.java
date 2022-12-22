@@ -1,5 +1,6 @@
 package com.example.word_phone_web.service.impl;
 
+import com.example.word_phone_web.common.StatusImei;
 import com.example.word_phone_web.config.Config;
 import com.example.word_phone_web.dto.request.orders.OrdersRequest;
 import com.example.word_phone_web.dto.respone.VPResponDto;
@@ -43,6 +44,7 @@ public class OrdersServiceImpl implements OrderService {
 
     private final ProductRepo productRepo;
 
+    private final ImeiRepo imeiRepo;
     private final ProductPropertyRepo productPropertyRepo;
     @Override
     public String createOrder(OrdersRequest request) {
@@ -69,7 +71,7 @@ public class OrdersServiceImpl implements OrderService {
                 for (CartEntity cart: cartEntities
                      ) {
                     OrdersDetailEntity ordersDetailEntity = new OrdersDetailEntity();
-                    ProductPropertyEntity propertyEntity = productPropertyRepo.findByDeleteFlagIsFalseAndId(cart.getIdProduct().getId());
+                    //ProductPropertyEntity propertyEntity = productPropertyRepo.findByDeleteFlagIsFalseAndId(cart.getIdProduct().getId());
                     //propertyEntity.setQuantity(propertyEntity.getQuantity() - cart.getQuantity());
 
                     ordersDetailEntity.setOrdersEntity(ordersEntity1);
@@ -79,7 +81,7 @@ public class OrdersServiceImpl implements OrderService {
                             : cart.getIdProduct().getPricePromotion());
                     ordersDetailRepo.save(ordersDetailEntity);
                     cartRepo.delete(cart);
-                    productPropertyRepo.save(propertyEntity);
+                    //productPropertyRepo.save(propertyEntity);
                 }
             return "ok";
         }catch (Exception e){
@@ -115,7 +117,7 @@ public class OrdersServiceImpl implements OrderService {
             for (CartEntity cart: cartEntities
             ) {
                 OrdersDetailEntity ordersDetailEntity = new OrdersDetailEntity();
-                ProductPropertyEntity propertyEntity = productPropertyRepo.findByDeleteFlagIsFalseAndId(cart.getIdProduct().getId());
+                //ProductPropertyEntity propertyEntity = productPropertyRepo.findByDeleteFlagIsFalseAndId(cart.getIdProduct().getId());
                 //propertyEntity.setQuantity(propertyEntity.getQuantity() - cart.getQuantity());
 
                 ordersDetailEntity.setOrdersEntity(ordersEntity1);
@@ -125,7 +127,7 @@ public class OrdersServiceImpl implements OrderService {
                         : cart.getIdProduct().getPricePromotion());
                 ordersDetailRepo.save(ordersDetailEntity);
                 cartRepo.delete(cart);
-                productPropertyRepo.save(propertyEntity);
+                //productPropertyRepo.save(propertyEntity);
             }
             VPResponDto vpResponDto = gson.fromJson(VNPAYService.payments(ordersEntity1.getId(), Math.toIntExact(request.getTotalMoney()), Config.getRandomNumber(8), requesthttp), VPResponDto.class);
 
@@ -185,6 +187,29 @@ public class OrdersServiceImpl implements OrderService {
     @Override
     public String canncelOrder(String id) {
         OrdersEntity entity = ordersRepo.findByCodeOrder(id);
+        if(Integer.parseInt(entity.getStatus()) > 1){
+            for (OrdersDetailEntity detail : entity.getOrdersDetailEntities()){
+                ProductPropertyEntity propertyEntity = productPropertyRepo.getById(detail.getIdPropertyProduct());
+                propertyEntity.setQuantity(detail.getQuantity() + propertyEntity.getQuantity());
+                productPropertyRepo.save(propertyEntity);
+                List<ImeiEntity> imeiEntityList = imeiRepo.findByDeleteFlagIsFalseAndPropertyProductIdAndOrderDetailId(propertyEntity.getId(), detail.getId());
+                for (ImeiEntity imei : imeiEntityList){
+                    imei.setStatus(StatusImei.CHUA_BAN.getValue());
+                    imei.setOrderDetailId(null);
+                    imeiRepo.save(imei);
+                }
+            }
+        }else if(Integer.parseInt(entity.getStatus()) == 1){
+            for (OrdersDetailEntity detail : entity.getOrdersDetailEntities()){
+
+                List<ImeiEntity> imeiEntityList = imeiRepo.findByDeleteFlagIsFalseAndPropertyProductIdAndOrderDetailId(detail.getIdPropertyProduct(), detail.getId());
+                for (ImeiEntity imei : imeiEntityList){
+                    imei.setStatus(StatusImei.CHUA_BAN.getValue());
+                    imei.setOrderDetailId(null);
+                    imeiRepo.save(imei);
+                }
+            }
+        }
         entity.setStatus("-1");
         ordersRepo.save(entity);
         return "ok";

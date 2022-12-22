@@ -242,6 +242,7 @@
     });
 
     function createOrder() {
+
         //vnpay.open({width: 768, height: 600, url: x.data});
         let address = $('#street-address').val();
         let note = $('#ordernote').val();
@@ -272,6 +273,7 @@
                 data: JSON.stringify(req),
                 success: function (result) {
                     toastSuccess("Thành công", "Đặt hàng thành công");
+                    window.location.href = "http://localhost:8888/home/index";
                 },
                 error: function (error) {
                     toastDanger("Thất bại","Đặt hàng thất bại");
