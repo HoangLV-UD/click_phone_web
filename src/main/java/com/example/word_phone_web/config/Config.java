@@ -6,14 +6,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.*;
 
-/**
- * Description:
- *
- * @author: Hieu
- * @version: 1.0
- * @since: 3/22/2022
- * Project_name: World Phone
- */
+
 
 public class Config {
     public static String vnp_PayUrl = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";

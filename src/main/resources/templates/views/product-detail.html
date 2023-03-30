@@ -65,16 +65,13 @@
                                     <span class="good"><i class="fa fa-star"></i></span>
                                     <span><i class="fa fa-star"></i></span>
                                     <div class="pro-review">
-                                        <span>1 review(s)</span>
+                                        <span>1 đánh giá(s)</span>
                                     </div>
                                 </div>
                                 <div class="customer-rev">
-                                    <a href="#">(1 customer review)</a>
+                                    <a href="#">(1 người đánh giá)</a>
                                 </div>
-                                <div class="availability mt-10">
-                                    <h5>Availability:</h5>
-                                    <span>1 in stock</span>
-                                </div>
+
                                 <div class="pricebox" th:if="${product.romRespones[0].productPropertyRespones[0].getPricePromotion() > 0}">
                                     <del class="regular-price" id="product-price"><span  th:text="${product.romRespones[0].productPropertyRespones[0].getPriceString()}"></span></del>
                                 </div>
@@ -109,7 +106,7 @@
                                         <div class="pro-qty"><input id="quantityCart" type="text" value="1"></div>
                                     </div>
                                     <div class="action_link">
-                                        <a class="buy-btn" onclick="addCart()" type="button">add to cart<i class="fa fa-shopping-cart"></i> </a>
+                                        <a class="buy-btn" onclick="addCart()" type="button">thêm vào giỏ hàng<i class="fa fa-shopping-cart"></i> </a>
                                     </div>
                                 </div>
                                 <div class="useful-links mt-20">

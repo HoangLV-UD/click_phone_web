@@ -8,7 +8,7 @@
                     <div class="header-call-action">
                         <a href="#">
                             <i class="fa fa-envelope"></i>
-                            info@website.com
+                            clickphoneVN@website.com
                         </a>
                         <a href="#">
                             <i class="fa fa-phone"></i>
@@ -24,7 +24,7 @@
                                     <a href="/cart">Giỏ hàng</a>
                                 </li>
                                 <li>
-                                    <a href="/logout">Đăng xuất</a>
+                                    <a href="/login">Đăng nhập</a>
                                 </li>
                             </ul>
                         </nav>
@@ -40,11 +40,11 @@
                 <div class="col-lg-3">
                     <div class="brand-logo">
                         <a href="/home/index">
-                            <img width="80px" src="https://cdn-icons-png.flaticon.com/512/809/809052.png"
+                                <img width="80px" src="https://cdn-icons-png.flaticon.com/512/809/809052.png"
                                  alt="brand logo">
                         </a>
                         </br>
-                        <span style="worfont-size: 35px;color: #d8373e;">WorldPhone</span>
+                        <span style="worfont-size: 35px;color: #d8373e;">ClickPhone</span>
                     </div>
                 </div>
                 <div class="col-lg-9">
@@ -112,7 +112,7 @@
                                     <i class="fa fa-angle-down"></i>
                                 </div>
                             </div>
-                            <nav class="category-menu hm-1">
+                            <nav class="category-menu">
                                 <ul>
                                     <th:block th:each="cart : ${category}">
                                         <li><a th:href="@{'/home/'+${cart.id}}">

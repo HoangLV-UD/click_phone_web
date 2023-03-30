@@ -18,13 +18,6 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Optional;
 
-/**
- * Description:
- *
- * @author: hieu
- * @since: 24/07/2022
- * Project_name: com.example.word_phone_web.controller
- */
 
 @Controller
 @RequiredArgsConstructor

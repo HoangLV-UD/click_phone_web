@@ -41,9 +41,18 @@ public class CartServiceimpl implements CartService {
 
     @Override
     public List<CartRespone> findByCustomer() {
-        CustomerEntity customerEntity = customerRepo.findByEmail(String.valueOf(sessionUtil.getObject("username")));
-        List<CartEntity> entities = cartRepo.findByDeleteFlagIsFalseAndIdCustomer(customerEntity.getId());
-        return entities.stream().map(this::mapToRespone).collect(Collectors.toList());
+       try {
+           String user = String.valueOf(sessionUtil.getObject("username"));
+           if (String.valueOf(sessionUtil.getObject("username")) != "null"){
+               CustomerEntity customerEntity = customerRepo.findByEmail(String.valueOf(sessionUtil.getObject("username")));
+               List<CartEntity> entities = cartRepo.findByDeleteFlagIsFalseAndIdCustomer(customerEntity.getId());
+               return entities.stream().map(this::mapToRespone).collect(Collectors.toList());
+           }
+           return null;
+       }catch (Exception e){
+           e.printStackTrace();
+           return null;
+       }
     }
 
     @Override

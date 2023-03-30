@@ -42,7 +42,7 @@ public class CartIntercepter implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         long totalCart = 0;
         int sizeCart = 0;
-        if(String.valueOf(sessionUtil.getObject("username")) != null){
+        if(String.valueOf(sessionUtil.getObject("username")) != "null"){
             List<CartRespone> listCart = cartService.findByCustomer();
             sizeCart = listCart.size();
             for (CartRespone respone: listCart
